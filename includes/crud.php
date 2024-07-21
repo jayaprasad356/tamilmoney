@@ -1,8 +1,8 @@
 <?php
 
 
-define('DOMAIN_URL', 'http://localhost/lifetimeads/');
-define('API_URL', 'http://localhost/lifetimeads/api/');
+define('DOMAIN_URL', 'http://localhost/tamil_money/');
+define('API_URL', 'http://localhost/tamil_money/admin_v1/api/');
 define('ALLOW_MODIFICATION', 1);
 define('JWT_SECRET_KEY', '12345678'); 
 define('MAIN_REFER', 'YMS');

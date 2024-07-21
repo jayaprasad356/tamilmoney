@@ -8,11 +8,79 @@ if (!$user_id) {
     die("User not logged in.");
 }
 
+if (isset($_POST['btnPay'])) {
+    $order_id = $_POST['order_id'];
+    $data = array(
+        "user_id" => $user_id,
+        "order_id" => $order_id,
+    );
+    $apiUrl = API_URL . "order_pay.php";
+
+    $curl = curl_init($apiUrl);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+    $response = curl_exec($curl);
+
+    if ($response === false) {
+        // Error in cURL request
+        echo "Error: " . curl_error($curl);
+    } else {
+        // Successful API response
+        $responseData = json_decode($response, true);
+        if ($responseData !== null && isset($responseData["success"])) {
+            $message = $responseData["message"];
+            // Alert and redirect
+            echo "<script>
+                    alert('$message');
+                    window.location.href = 'recharge.php';
+                  </script>";
+        } else {
+            // Failed to fetch transaction details
+            if ($responseData !== null) {
+                echo "Error message: " . $responseData["message"];
+            }
+        }
+    }
+    
+    curl_close($curl);
+}
 $data = array(
     "user_id" => $user_id,
 );
 
-$apiUrl = API_URL . "withdrawals_list.php";
+$apiUrl = API_URL . "pay_links_list.php";
+
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+    $userdetails = [];
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        // Store transaction details
+        $payOptions = $responseData["data"];
+    } else {
+     
+        $userdetails = [];
+    }
+}
+
+curl_close($curl);
+
+$apiUrl = API_URL . "order_pay_list.php";
 
 $curl = curl_init($apiUrl);
 
@@ -99,13 +167,43 @@ curl_close($curl);
     <div class="row flex-nowrap">
     <?php include_once('sidebar.php'); ?>
         <div class="col py-3">
-            <div class="withdrawal-container" id="withdrawals">
-                <h2>Withdrawal List</h2>
-                <a href="withdrawal_request.php" class="btn btn-primary withdrawal-button">Request Withdrawal</a>
-                <table class="table table-bordered">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <select class="form-select" aria-label="Select Recharge">
+                            <?php
+                            foreach ($payOptions as $option) {
+                                echo "<option value='" . $option["links"] . "'>" . $option["amount"] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary" onclick="redirectToOptionLink(document.querySelector('.form-select'))">Pay</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                <form action="recharge.php" method="post">
+                    <div class="col-md-9">
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Enter Order Id</label>
+                                <input  class="form-control" id="order_id" name="order_id" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" name="btnPay" class="btn btn-primary">Submit Request</button>
+                        </div>
+                </form>
+
+                </div>
+            </div>
+
+            <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">S.No</th>
+                            <th scope="col">Order Id</th>
                             <th scope="col">Status</th>
                             <th scope="col">Amount</th>
                             <th scope="col">DateTime</th>
@@ -116,14 +214,15 @@ curl_close($curl);
                         <?php foreach ($userdetails as $index => $withdrawal): ?>
                             <tr>
                                 <th scope="row"><?php echo $index + 1; ?></th>
+                                <td><?php echo htmlspecialchars($withdrawal['order_id']); ?></td>
                                 <td>
                                     <?php 
                                     if ($withdrawal['status'] === '1') {
-                                        echo '<span class="text-success">Paid</span>';
+                                        echo '<span class="text-success">Success</span>';
                                     } elseif ($withdrawal['status'] === '0') {
-                                        echo '<span class="text-primary">Not Paid</span>';
+                                        echo '<span class="text-primary">Pending</span>';
                                     } elseif ($withdrawal['status'] === '2') {
-                                         echo '<span class="text-danger">Cancelled</span>';
+                                         echo '<span class="text-danger">Rejeted</span>';
                                     } 
                                     ?>
                                 </td>
@@ -138,7 +237,17 @@ curl_close($curl);
                         <?php endif; ?>
                     </tbody>
                 </table>
-            </div>
+
+            <script>
+                function redirectToOptionLink(selectElement) {
+                    var selectedOption = selectElement.value;
+                    if (selectedOption) {
+                        window.location.href = selectedOption;
+                    }
+                }
+            </script>
+
+            
         </div>
     </div>
 </div>
