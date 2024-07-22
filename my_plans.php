@@ -138,7 +138,7 @@ if (isset($_POST['btnIncome'])) {
                         <div class="col-md-4 mb-4">
                             <div class="card" style="width: 18rem;">
                                 <!-- Use the dynamic image URL -->
-                                <img class="card-img-top img-fluid" src="<?php echo htmlspecialchars($plan['image']); ?>" alt="Plan image" style="max-width: 100%; height: 100px; width: 100px;">
+                                <img class="card-img-top img-fluid" src="<?php echo htmlspecialchars($plan['image']); ?>" alt="Plan image" style="max-width: 100%; height: 200px; width: 300px;">
 
                                 <div class="card-body">
                                 <h5 class="card-title">
