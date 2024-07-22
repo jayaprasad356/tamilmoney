@@ -37,7 +37,7 @@ if ($response === false) {
     } else {
         ;
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>window.location.href = 'login.php';</script>";
         }
         $plans = [];
     }
@@ -82,7 +82,7 @@ if (isset($_POST['btnIncome'])) {
         } else {
             // Failed to fetch transaction details
             if ($responseData !== null) {
-                echo "Error message: " . $responseData["message"];
+                echo "<script>window.location.href = 'login.php';</script>";
             }
         }
     }
