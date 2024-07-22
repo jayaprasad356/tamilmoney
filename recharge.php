@@ -168,6 +168,7 @@ curl_close($curl);
     <div class="row flex-nowrap">
     <?php include_once('sidebar.php'); ?>
         <div class="col py-3">
+        <h2>Choose About</h2>
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-6">

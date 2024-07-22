@@ -56,8 +56,8 @@
             .sidebar.expanded #brandTitle {
                 display: inline;
                 position: fixed;
-                left: 60px;
-                top: 30px;
+                left: 50px;
+                top: 70px;
                 z-index: 1050;
             }
         }
@@ -66,18 +66,20 @@
 <body>
     <div class="sidebar bg-dark text-white d-flex flex-column align-items-start px-3 pt-2 min-vh-100">
         <!-- Menu Toggle Button and Brand Title (visible only on mobile) -->
-        <div class="d-flex align-items-center mb-3 d-md-none">
-            <button id="menuToggle" class="btn btn-dark text-white" type="button">
-                <i id="menuIcon" class="fs-4 bi-list"></i>
-            </button>
-            <span id="brandTitle" class="ms-2">Tamil Money</span>
-        </div>
+            <!-- Mobile Menu Toggle -->
+            <div class="d-flex align-items-center mb-3 d-md-none">
+                <button id="menuToggle" class="btn btn-dark text-white" type="button">
+                    <i id="menuIcon" class="fs-4 bi-list"></i>
+                </button>
+                <span id="brandTitle" class="ms-2">Money Book</span>
+            </div>
 
-        <!-- Sidebar Brand -->
-        <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-5 d-none d-sm-inline">Tamil Money</span>
-        </a>
-        
+            <!-- Sidebar Brand -->
+            <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <img src="admin_v1/dist/img/money.jpeg" alt="Logo" style="max-width: 30px; height: auto; margin-right: 10px; border-radius:14px;">
+                <span class="fs-5 d-none d-sm-inline">Money Book</span>
+            </a>
+
         <!-- Sidebar Menu -->
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start">
             <li>

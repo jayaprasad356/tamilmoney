@@ -31,7 +31,7 @@ include "header.php";
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Tamil Money- Dashboard</title>
+    <title>Money Book- Dashboard</title>
 </head>
 
 <body>

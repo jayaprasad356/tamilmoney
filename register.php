@@ -274,7 +274,10 @@ if (isset($_POST['btnSignup'])) {
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-custom" name="btnSignup" style="background-color:#fed346; color:white; font-weight:bold;">Save</button>
+                    <button type="submit" class="btn btn-primary btn-custom" name="btnSignup" style="background-color:#fed346; color:white; font-weight:bold;">Register</button>
+                </div>
+                <div class="text-center mt-3">
+                    <p><a href="index.php">Back to Login</a></p>
                 </div>
             </form>
         </div>
