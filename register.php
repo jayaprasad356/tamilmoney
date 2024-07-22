@@ -145,15 +145,31 @@ if (isset($_POST['btnSignup'])) {
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="custom-container">
         <form method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                    <label for="number" style= "font-weight:bold;">Mobile Number:</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="border-right: none; background: transparent;"><i class="fas fa-mobile-alt"></i></span>
+                    <div class="form-group">
+                        <label for="mobile" style="font-weight:bold;">Mobile Number:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-right: none; background: transparent;"><i class="fas fa-mobile-alt"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile" style="border-left: none" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="sendOtpButton">Send</button>
+                            </div>
                         </div>
-                        <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile" required style="border-left: none; ">
                     </div>
-                </div>
+                            
+                    <div class="form-group">
+                        <label for="otp" style="font-weight:bold;">OTP:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-right: none; background: transparent;"><i class="fas fa-message"></i></span>
+                            </div>
+                            <input type="number" class="form-control" id="otp" name="otp" placeholder="OTP" style="border-left: none">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" type="button" id="verifyOtpButton">Verify</button>
+                            </div>
+                        </div>
+                    </div>
                 <div class="form-group">
                     <label for="name" style= "font-weight:bold;">Full Name:</label>
                     <div class="input-group">

@@ -1,8 +1,8 @@
 <?php
 
 
-define('DOMAIN_URL', 'http://localhost/tamil_money/');
-define('API_URL', 'http://localhost/tamil_money/admin_v1/api/');
+define('DOMAIN_URL', 'https://tm.graymatterworks.com/');
+define('API_URL', 'https://tm.graymatterworks.com/admin_v1/api/');
 define('ALLOW_MODIFICATION', 1);
 define('JWT_SECRET_KEY', '12345678'); 
 define('MAIN_REFER', 'YMS');
@@ -10,9 +10,9 @@ class Database
 {
 
     private $db_host = "localhost";
-    private $db_user = "root";
-    private $db_pass = ""; 
-    private $db_name = "lifetime_ads"; 
+    private $db_user = "u743445510_tamilmoney";
+    private $db_pass = "Tamilmoney@2024"; 
+    private $db_name = "u743445510_tamilmoney"; 
 
 
 

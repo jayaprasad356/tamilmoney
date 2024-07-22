@@ -1,7 +1,7 @@
 <?php
 
 
-define('DOMAIN_URL', 'https://lifetimeads.graymatterworks.com/'); /* chnage to your domain here - don't forget to add forward slash at the end of the URL like this "/" */
+define('DOMAIN_URL', 'https://tm.graymatterworks.com/'); /* chnage to your domain here - don't forget to add forward slash at the end of the URL like this "/" */
 define('ALLOW_MODIFICATION', 1);
 define('JWT_SECRET_KEY', '12345678'); /* chnage to your secret key here set it to anything you like*/
 define('MAIN_REFER', 'ATN');
@@ -19,9 +19,9 @@ class Database
 
      //live
      private $db_host = "localhost";
-     private $db_user = "root";
-     private $db_pass = ""; 
-     private $db_name = "lifetime_ads"; 
+     private $db_user = "u743445510_tamilmoney";
+     private $db_pass = "Tamilmoney@2024"; 
+     private $db_name = "u743445510_tamilmoney"; 
     //private $db_host = "localhost";  // Change as required
     // private $db_user = "root";  // Change as required
     // private $db_pass = "";  // Change as required
