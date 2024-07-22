@@ -281,6 +281,18 @@ if ($_SESSION['role'] == 'admin') {
                         <span>Review</span>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="pay_links.php">
+                    <i class="fas fa-credit-card"></i>
+                        <span>Pay Links</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="recharge_orders.php">
+                    <i class="fas fa-bolt"></i> 
+                        <span>Recharge Orders</span>
+                    </a>
+                </li>
                 <?php } ?>
             </section>
             <!-- /.sidebar -->

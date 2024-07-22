@@ -119,6 +119,11 @@ if (isset($_POST['btnactivate'])) {
             font-size: 1.25rem;
             margin: 0;
         }
+        .highlight {
+            background-color: yellow; 
+            font-weight: bold;
+            padding: 0 5px;
+        }
     </style>
 </head>
 <body>
@@ -133,19 +138,29 @@ if (isset($_POST['btnactivate'])) {
                         <div class="col-md-4 mb-4">
                             <div class="card" style="width: 18rem;">
                                 <!-- Use the dynamic image URL -->
-                                <img class="card-img-top img-fluid" src="<?php echo htmlspecialchars($plan['image']); ?>" alt="Plan image" style="max-width: 100%; height: 100px; width: 100px;">
+                                <img class="card-img-top img-fluid" src="<?php echo htmlspecialchars($plan['image']); ?>" alt="Plan image" style="max-width: 100%; height: 200px; width: 300px;">
 
                                 <div class="card-body">
-                                    <h5 class="card-title"><?php echo htmlspecialchars($plan['products']); ?></h5>
-                                    <p class="card-text">Price: <?php echo htmlspecialchars($plan['price']); ?></p>
-                                    <p class="card-text">Daily Income: <?php echo htmlspecialchars($plan['daily_income']); ?></p>
-                                    <p class="card-text">Invite Bonus: <?php echo htmlspecialchars($plan['invite_bonus']); ?></p>
-                                    <p class="card-text">No of Videos: <?php echo htmlspecialchars($plan['num_times']); ?></p>
-                                    <p class="card-text">Validity: Unlimited Days</p>
+                                <h5 class="card-title">
+                                        <strong><?php echo htmlspecialchars($plan['products']); ?></strong>
+                                    </h5>
+                                    <p class="card-text">
+                                        Price: <strong><?php echo htmlspecialchars($plan['price']); ?></strong>
+                                    </p>
+                                    <p class="card-text">
+                                        Daily Income: <strong><?php echo htmlspecialchars($plan['daily_income']); ?></strong>
+                                    </p>
+                                    <p class="card-text">
+                                        Invite Bonus: <strong><?php echo htmlspecialchars($plan['invite_bonus']); ?></strong>
+                                    </p>
+                                    <p class="card-text">
+                                        Validity: <span class="highlight">Unlimited Days</span>
+                                    </p>
+
                                     <form action="plan.php" method="post" style="display: inline;">
-                    <input type="hidden" name="plan_id" value="<?php echo htmlspecialchars($plan['id']); ?>">
-                    <button type="submit" name="btnactivate" class="btn btn-success">Activate</button>
-                </form>
+                                        <input type="hidden" name="plan_id" value="<?php echo htmlspecialchars($plan['id']); ?>">
+                                        <button type="submit" name="btnactivate" class="btn btn-success">Activate</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
