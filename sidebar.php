@@ -70,12 +70,12 @@
             <button id="menuToggle" class="btn btn-dark text-white" type="button">
                 <i id="menuIcon" class="fs-4 bi-list"></i>
             </button>
-            <span id="brandTitle" class="ms-2">Ratingjobs</span>
+            <span id="brandTitle" class="ms-2">Tamil Money</span>
         </div>
 
         <!-- Sidebar Brand -->
         <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-5 d-none d-sm-inline">Ratingjobs</span>
+            <span class="fs-5 d-none d-sm-inline">Tamil Money</span>
         </a>
         
         <!-- Sidebar Menu -->

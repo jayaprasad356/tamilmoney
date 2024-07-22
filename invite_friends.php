@@ -1,3 +1,59 @@
+
+<?php
+include_once('includes/crud.php');
+session_start();
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
+$user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null; // Ensure user_id is set
+
+if (!$user_id) {
+    header("Location: index.php");
+    exit();
+}
+
+$data = array(
+    "user_id" => $user_id,
+);
+
+$apiUrl = API_URL."user_details.php";
+
+
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        // Display transaction details
+        $userdetails = $responseData["data"];
+        if (!empty($userdetails)) {
+            $refer_code = $userdetails[0]["refer_code"];
+        } else {
+            echo "No transactions found.";
+        }
+    } else {
+        echo "Failed to fetch transaction details.";
+        if ($responseData !== null) {
+            echo " Error message: " . $responseData["message"];
+        }
+    }
+}
+
+curl_close($curl);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +127,7 @@
                 <form action="submit_withdrawal_request.php" method="post">
                 <div class="mb-3">
                 <label for="link" class="form-label">Invite Link</label>
-                <input type="text" class="form-control" id="inviteLink" name="link" value="https://example.com/invite" disabled>
+                <input type="text" class="form-control" id="inviteLink" name="link" value="https://tm.graymatterworks.com/register.php?refer_code=<?php echo $refer_code; ?>" disabled>
             </div>
             <button type="button" id="copyButton" class="btn btn-primary">
                 <i class="fs-5 bi-copy"></i> Copy Link
@@ -82,7 +138,6 @@
     </div>
     </div>
 </div>
-
 
     <!-- Bootstrap JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
