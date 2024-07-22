@@ -36,7 +36,7 @@ if (isset($_POST['btnLogin'])) {
                     $_SESSION['id'] = $userdetails[0]["id"];
                     header("Location: dashboard.php");
                 } else {
-                    echo "No transactions found.";
+                    echo "<script>alert('No transactions found.')</script>";
                 }
             } else {
                 if ($responseData !== null) {
