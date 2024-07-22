@@ -6,7 +6,8 @@ session_start();
 $user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
 
 if (!$user_id) {
-    die("User not logged in.");
+    header("Location: index.php");
+    exit();
 }
 
 $data = array(
@@ -37,7 +38,7 @@ if ($response === false) {
     } else {
         ;
         if ($responseData !== null) {
-            echo "<script>window.location.href = 'login.php';</script>";
+            echo " Error message: " . $responseData["message"];
         }
         $plans = [];
     }
@@ -82,7 +83,7 @@ if (isset($_POST['btnIncome'])) {
         } else {
             // Failed to fetch transaction details
             if ($responseData !== null) {
-                echo "<script>window.location.href = 'login.php';</script>";
+                echo "Error message: " . $responseData["message"];
             }
         }
     }

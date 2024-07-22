@@ -5,7 +5,8 @@ session_start();
 $user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null; // Ensure user_id is set
 
 if (!$user_id) {
-    die("User not logged in.");
+    header("Location: index.php");
+    exit();
 }
 
 if (isset($_POST['btnPay'])) {

@@ -5,9 +5,9 @@ session_start();
 $user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null; // Ensure user_id is set
 
 if (!$user_id) {
-    die("User not logged in.");
+    header("Location: index.php");
+    exit();
 }
-
 $data = array(
     "user_id" => $user_id,
     "level" => 'b',
