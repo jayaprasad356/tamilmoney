@@ -1311,7 +1311,7 @@ foreach ($res as $row) {
     elseif($row['status']==0)
         $tempRow['status']="<p class='text text-primary'>Pending</p>";
     else
-        $tempRow['status']="<p class='text text-danger'>Cancelled</p>";
+        $tempRow['status']="<p class='text text-danger'>Rejected</p>";
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
