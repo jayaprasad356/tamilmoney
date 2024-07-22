@@ -39,7 +39,7 @@ if (isset($_POST['btnSignup'])) {
             "device_id" => $device_id,
         );
 
-        $apiUrl = "https://lifetimeads.graymatterworks.com/api/register.php";
+        $apiUrl = "https://tm.graymatterworks.com/admin_v1/api/register.php";
         $curl = curl_init($apiUrl);
 
         curl_setopt($curl, CURLOPT_POST, true);
