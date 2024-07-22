@@ -101,40 +101,6 @@ include "header.php";
                     </div>
                 </div>
                 <div class="col-lg-4 col-xs-6">
-                    <div class="small-box bg-blue">
-                        <div class="inner">
-                            <h3><?php
-                             $sql = "SELECT COUNT(id) AS count  FROM recharge WHERE status = 0 ";
-                             $db->sql($sql);
-                             $res = $db->getResult();
-                             $totalamount = $res[0]['count'];
-                             echo $totalamount;
-                              ?></h3>
-                            <p>Pending Recharge</p>
-                        </div>
-                       
-                        <a href="recharge.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xs-6">
-                    <div class="small-box bg-green">
-                        <div class="inner">
-                            <h3><?php
-                             $sql = "SELECT SUM(amount) AS amount  FROM  transactions  WHERE type = 'recharge' AND DATE(datetime) = '$date'";
-                             $db->sql($sql);
-                             $res = $db->getResult();
-                             $totalamount = $res[0]['amount'];
-                             echo "₹".$totalamount;
-                              ?></h3>
-                            <p>Today Recharge Amount</p>
-                        </div>
-                       
-                        <a href="recharge.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xs-6">
                     <div class="small-box bg-yellow">
                         <div class="inner">
                             <h3><?php
@@ -149,39 +115,6 @@ include "header.php";
                        
                         <a href="users.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xs-6">
-                    <div class="small-box bg-teal">
-                        <div class="inner">
-                            <h3><?php
-                              $sql = "SELECT SUM(amount) AS amount  FROM  transactions  WHERE type = 'recharge' AND datetime >= '$yes_dt' AND datetime <= '$yes_dt_'";
-                             $db->sql($sql);
-                             $res = $db->getResult();
-                             $count = $res[0]['amount'];
-                             echo "₹".$count;
-                              ?></h3>
-                            <p>Yesterday Current Recharge</p>
-                        </div>
-                       
-                        <a href="recharge.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xs-6">
-                    <div class="small-box bg-purple">
-                        <div class="inner">
-                        <?php
-                          $sql = "SELECT COUNT(id) AS total FROM users WHERE registered_datetime >= '$yes_dt' AND registered_datetime <= '$yes_dt_'";
-                          $db->sql($sql);
-                          $res = $db->getResult();
-                          $num = $res[0]['total']; // Fetch the count from the result
-                           ?>
-                          <h3><?php echo $num; ?></h3>
-                          <p>Yesterday Current Registration </p>
-                          </div>
-                        
-                        <a href="users.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
              </div>

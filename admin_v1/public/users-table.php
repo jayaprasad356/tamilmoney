@@ -11,17 +11,11 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                <div class="col-md-3">
+                        <div class="col-md-3">
                         <h4 class="box-title">Referred By</h4>
                             <input type="text" class="form-control" name="referred_by" id="referred_by" >
                         </div>
                         <div class="col-md-3">
-                        <h4 class="box-title">Filter by Profile</h4>
-                        <select id="profile" name="profile" class="form-control">
-                            <option value="">All</option>
-                            <option value="text">Yes</option>
-                            <option value="NULL">No</option>
-                        </select>
                     </div>
                         </div>
                     <div  class="box-body table-responsive">
@@ -59,9 +53,6 @@
                                     <th  data-field="total_withdrawal" data-sortable="true">Total Withdrawals</th>
                                     <th  data-field="team_income" data-sortable="true">Team Income</th>
                                     <th data-field="registered_datetime" data-sortable="true">Registered Datetime</th>
-                                    <th  data-field="latitude" data-sortable="true">Latitude</th>
-                                    <th  data-field="longitude" data-sortable="true">Longitude</th>
-                                    <th data-field="profile">Profile</th>
                                 </tr>
                             </thead>
                         </table>

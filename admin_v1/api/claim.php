@@ -45,7 +45,7 @@ $income_status = $result[0]['income_status'];
 
 if ($income_status == 0) {
     $response['success'] = false;
-    $response['message'] = "Today Holiday";
+    $response['message'] = "Income Disabled Today";
     print_r(json_encode($response));
     return false;
 }
@@ -63,7 +63,6 @@ if (empty($plan)) {
     return false;
 }
 
-$category = $plan[0]['category'];
 
 $sql = "SELECT id,referred_by,c_referred_by,d_referred_by,valid_team,valid FROM users WHERE id = $user_id";
 $db->sql($sql);

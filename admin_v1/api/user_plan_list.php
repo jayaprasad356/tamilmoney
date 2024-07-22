@@ -34,7 +34,7 @@ if (empty($user)) {
 $valid = $user[0]['valid'];
 $join = "";
 if($valid == 1){
-    $join = "AND user_plan.plan_id != 1";
+    $join = "";
 
 }
 

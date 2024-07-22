@@ -145,13 +145,13 @@ if (isset($_POST['btnactivate'])) {
                                         <strong><?php echo htmlspecialchars($plan['products']); ?></strong>
                                     </h5>
                                     <p class="card-text">
-                                        Price: <strong><?php echo htmlspecialchars($plan['price']); ?></strong>
+                                        Price: <strong><?php echo '₹'. htmlspecialchars($plan['price']); ?></strong>
                                     </p>
                                     <p class="card-text">
-                                        Daily Income: <strong><?php echo htmlspecialchars($plan['daily_income']); ?></strong>
+                                        Daily Income: <strong><?php echo '₹'.htmlspecialchars($plan['daily_income']); ?></strong>
                                     </p>
                                     <p class="card-text">
-                                        Invite Bonus: <strong><?php echo htmlspecialchars($plan['invite_bonus']); ?></strong>
+                                        Invite Bonus: <strong><?php echo '₹'. htmlspecialchars($plan['invite_bonus']); ?></strong>
                                     </p>
                                     <p class="card-text">
                                         Validity: <span class="highlight">Unlimited Days</span>
@@ -159,7 +159,7 @@ if (isset($_POST['btnactivate'])) {
 
                                     <form action="plan.php" method="post" style="display: inline;">
                                         <input type="hidden" name="plan_id" value="<?php echo htmlspecialchars($plan['id']); ?>">
-                                        <button type="submit" name="btnactivate" class="btn btn-success">Activate</button>
+                                        <button type="submit" name="btnactivate" class="btn btn-success">Purchase</button>
                                     </form>
                                 </div>
                             </div>

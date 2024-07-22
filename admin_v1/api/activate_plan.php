@@ -118,7 +118,7 @@ $user_num_times = $res_check_plan[0]['count'];
 
 if ($user_num_times >= $num_times) {
     $response['success'] = false;
-    $response['message'] = "Plan already activated";
+    $response['message'] = "Already Purchased";
     print_r(json_encode($response));
     return false;
 }
@@ -163,16 +163,16 @@ if ($recharge >= $price) {
         if ($num == 1) {
             $r_id = $res[0]['id'];
             $r_refer_code = $res[0]['refer_code'];
-            if($plan_id == 1){
-                $sql = "SELECT id FROM users WHERE referred_by = '$r_refer_code' AND valid = 0";
-                $db->sql($sql);
-                $res = $db->getResult();
-                $num = $db->numRows($res);
-                if($num > 5){
-                    $invite_bonus = 0;
+            // if($plan_id == 1){
+            //     $sql = "SELECT id FROM users WHERE referred_by = '$r_refer_code' AND valid = 0";
+            //     $db->sql($sql);
+            //     $res = $db->getResult();
+            //     $num = $db->numRows($res);
+            //     if($num > 5){
+            //         $invite_bonus = 0;
 
-                }
-            }
+            //     }
+            // }
             $sql = "UPDATE users SET balance = balance + $invite_bonus,today_income = today_income + $invite_bonus,total_income = total_income + $invite_bonus,team_income = team_income + $invite_bonus  WHERE refer_code = '$referred_by'";
             $db->sql($sql);
 
@@ -182,49 +182,19 @@ if ($recharge >= $price) {
         }
 
     }
-    if ($plan_id == 8) {
 
-        $min_withdrawal = 150;
 
-        $sql = "UPDATE users SET min_withdrawal = $min_withdrawal WHERE id = '$user_id'";
-        $db->sql($sql);
-    }
-    if ($plan_id == 7) {
-
-        $min_withdrawal = 50;
-
-        $sql = "UPDATE users SET min_withdrawal =  $min_withdrawal WHERE id = '$user_id'";
-        $db->sql($sql);
-    }
-
-    if ($scratch_card == 1 && $plan_id != 1 ) {
-
-        $price = $plan[0]['price'];
-        $amount = rand(1,3) / 100 * $price ;
-
-        // $sql = "UPDATE users SET chances = chances + 1 WHERE id = $user_id";
-        // $db->sql($sql);
-
-        // $sql_insert_user_plan = "INSERT INTO scratch_cards (user_id,amount,status) VALUES ('$user_id','$amount',0)";
-        // $db->sql($sql_insert_user_plan);
-
-        // $sql = "UPDATE users SET chances = chances + 1 WHERE refer_code = '$referred_by'";
-        // $db->sql($sql);
-      //  $sql_insert_user_plan = "INSERT INTO scratch_cards (user_id,amount,status) VALUES ('$r_id','$amount',0)";
-      //  $db->sql($sql_insert_user_plan);
-    }
-
-    $sql_insert_user_plan = "INSERT INTO user_plan (user_id,plan_id,joined_date) VALUES ('$user_id','$plan_id','$date')";
+    $sql_insert_user_plan = "INSERT INTO user_plan (user_id,plan_id,joined_date,claim) VALUES ('$user_id','$plan_id','$date',1)";
     $db->sql($sql_insert_user_plan);
 
     $sql_insert_transaction = "INSERT INTO transactions (user_id, amount, datetime, type) VALUES ('$user_id', '$price', '$datetime', 'start_plan')";
     $db->sql($sql_insert_transaction);
 
     $response['success'] = true;
-    $response['message'] = "Plan started successfully";
+    $response['message'] = "Purchased successfully";
  }else {
     $response['success'] = false;
-    $response['message'] = "Insufficient balance to start this plan";
+    $response['message'] = "Insufficient balance ";
 }
 
 print_r(json_encode($response));

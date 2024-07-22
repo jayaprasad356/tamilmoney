@@ -1,4 +1,5 @@
 <?php
+include_once('includes/crud.php');
 session_start();
 ob_start();
 
@@ -11,7 +12,7 @@ function generateDeviceID()
 }
 
 if (isset($_POST['btnSignup'])) {
-    $mobile = $_POST["mobile"];
+    $mobile = $_POST["mobilenum"];
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirmPassword"];
     $name = $_POST["name"];
@@ -19,68 +20,77 @@ if (isset($_POST['btnSignup'])) {
     $city = $_POST["city"];
     $state = $_POST["state"];
     $age = $_POST["age"];
+    $otpstatus = $_POST["otpstatus"];
     $referred_by = isset($_POST["referred_by"]) ? $_POST["referred_by"] : $refer_code; 
     $device_id = generateDeviceID();
 
     if ($password !== $confirmPassword) {
         echo "<script>alert('Password and Confirm Password do not match');</script>";
     } else {
-        // Proceed with registration process
-
-        $data = array(
-            "mobile" => $mobile,
-            "password" => $password,
-            "name" => $name,
-            "email" => $email,
-            "city" => $city,
-            "state" => $state,
-            "age" => $age,
-            "referred_by" => $referred_by,
-            "device_id" => $device_id,
-        );
-
-        $apiUrl = "https://tm.graymatterworks.com/admin_v1/api/register.php";
-        $curl = curl_init($apiUrl);
-
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-        $response = curl_exec($curl);
-
-        if ($response === false) {
-            echo "Error: " . curl_error($curl);
-        } else {
-            $responseData = json_decode($response, true);
-
-            if ($responseData === null) {
-                echo "Error decoding API response.";
+        if($otpstatus == '1'){
+            $data = array(
+                "mobile" => $mobile,
+                "password" => $password,
+                "name" => $name,
+                "email" => $email,
+                "city" => $city,
+                "state" => $state,
+                "age" => $age,
+                "referred_by" => $referred_by,
+                "device_id" => $device_id,
+            );
+    
+            $apiUrl = API_URL."register.php";
+            $curl = curl_init($apiUrl);
+    
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    
+            $response = curl_exec($curl);
+    
+            if ($response === false) {
+                echo "Error: " . curl_error($curl);
             } else {
-                if (isset($responseData["success"]) && $responseData["success"]) {
-                    // Registration successful
-                    $user_id = $responseData["data"][0]['id']; // Capture user_id from response
-                    $_SESSION['id'] = $user_id;
-                    $_SESSION['codes'] = 0;
-
-                    // Redirect without user_id in the URL
-                    header("Location: dashboard.php");
-                    exit();
+                $responseData = json_decode($response, true);
+    
+                if ($responseData === null) {
+                    echo "Error decoding API response.";
                 } else {
-                    // Registration failed
-                    $message = isset($responseData["message"]) ? $responseData["message"] : "Registration failed. Please try again.";
-                    echo "<script>alert('$message');</script>";
-
-                    if (isset($responseData["register_required"]) && $responseData["register_required"]) {
-                        header("Location: index.php");
+                    if (isset($responseData["success"]) && $responseData["success"]) {
+                        // Registration successful
+                        $user_id = $responseData["data"][0]['id']; // Capture user_id from response
+                        $_SESSION['id'] = $user_id;
+                        $_SESSION['codes'] = 0;
+    
+                        // Redirect without user_id in the URL
+                        header("Location: dashboard.php");
                         exit();
+                    } else {
+                        // Registration failed
+                        $message = isset($responseData["message"]) ? $responseData["message"] : "Registration failed. Please try again.";
+                        echo "<script>alert('$message');</script>";
+    
+                        if (isset($responseData["register_required"]) && $responseData["register_required"]) {
+                            header("Location: index.php");
+                            exit();
+                        }
                     }
                 }
             }
+            curl_close($curl);
+
+        }else{
+            $message = 'Mobile number not verified';
+            echo "<script>alert('$message');</script>";
+
         }
-        curl_close($curl);
+
+
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +101,7 @@ if (isset($_POST['btnSignup'])) {
     <title>Register Page</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         input[type="number"]::-webkit-inner-spin-button,
@@ -138,15 +149,18 @@ if (isset($_POST['btnSignup'])) {
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="custom-container">
             <form method="post" enctype="multipart/form-data">
+            <input type="hidden" class="form-control" id="otpstatus" name="otpstatus" value="0">
+            <input type="hidden" class="form-control" id="mobilenum" name="mobilenum" value="">
+                        
                 <div class="form-group">
                     <label for="mobile" style="font-weight:bold;">Mobile Number:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="border-right: none; background: transparent;"><i class="fas fa-mobile-alt"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile" style="border-left: none" required>
+                        <input type="number" class="form-control" id="mobile" name="mobile" placeholder="Mobile" style="border-left: none" required>
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" id="sendOtpButton">Send</button>
+                            <div class="btn btn-primary"  id="sendOtpButton">Send</div>
                         </div>
                     </div>
                 </div>
@@ -158,7 +172,8 @@ if (isset($_POST['btnSignup'])) {
                         </div>
                         <input type="number" class="form-control" id="otp" name="otp" placeholder="OTP" style="border-left: none">
                         <div class="input-group-append">
-                            <button class="btn btn-success" type="button" id="verifyOtpButton">Verify</button>
+                            <div class="btn btn-success"  id="verifyOtpButton">Verify</div>
+                            
                         </div>
                     </div>
                 </div>
@@ -270,7 +285,7 @@ if (isset($_POST['btnSignup'])) {
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="border-right: none; background: transparent;"><i class="fas fa-book"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="referred_by" name="referred_by" value="<?php echo htmlspecialchars($refer_code); ?>" style="border-left: none;" <?php if ($isReferCodeSet) echo 'readonly'; ?>>
+                        <input type="text" class="form-control" id="referred_by" name="referred_by" required value="<?php echo htmlspecialchars($refer_code); ?>" style="border-left: none;" <?php if ($isReferCodeSet) echo 'readonly'; ?>>
                     </div>
                 </div>
                 <div class="form-group">
@@ -282,12 +297,65 @@ if (isset($_POST['btnSignup'])) {
             </form>
         </div>
     </div>
+
+
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            // Get the checkbox element
-            var checkbox = document.getElementById('checkbox');
-            // Set the "checked" attribute to true
-            checkbox.checked = true;
+        $(document).ready(function() {
+            var crctotp = '';
+            $("#sendOtpButton").click(function() {
+                var mobile = $("#mobile").val();
+                var mobilenum = document.getElementById("mobilenum");
+                if (mobile.length === 10) {
+                    var otp = Math.floor(100000 + Math.random() * 900000);
+                        $.ajax({
+                        url: "https://api.authkey.io/request",
+                        type: "GET",
+                        data: {
+                            authkey: "b45c58db6d261f2a",
+                            mobile: mobile,
+                            country_code: "91",
+                            sid: "9214",
+                            otp: otp,
+                            company: "Book Money"
+                        },
+                        success: function(response) {
+                            crctotp = otp;
+                            mobilenum.value = mobile.value;
+                            $("#mobile").prop("disabled", true);
+                            alert("OTP Sent Successfully");
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX request failed: ", status, error);
+                            alert("OTP Failed");
+                        }
+                    });
+
+                }else{
+                    alert("Please enter a valid 10-digit mobile number.");
+                }
+
+            });
+
+            $("#verifyOtpButton").click(function() {
+                var otp = $("#otp").val();
+                var otpStatusElement = document.getElementById("otpstatus");
+                if (otp.length === 6) {
+                    if(otp == crctotp){
+                        otpStatusElement.value = "1";
+                        
+
+                        alert("OTP Verified Successfully");
+                    }else{
+                        otpStatusElement.value = "0";
+                        alert("OTP Wrong");
+                    }
+
+
+                }else{
+                    alert("Please enter a valid 6-digit otp.");
+                }
+
+            });
         });
     </script>
 </body>

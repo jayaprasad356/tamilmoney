@@ -135,13 +135,6 @@ $db->connect();
                 $tempRow['total_withdrawal'] = $row['total_withdrawal'];
                 $tempRow['team_income'] = $row['team_income'];
                 $tempRow['registered_datetime'] = $row['registered_datetime'];
-                $tempRow['latitude'] = $row['latitude'];
-                $tempRow['longitude'] = $row['longitude'];
-                if (!empty($row['profile'])) {
-                    $tempRow['profile'] = "<a data-lightbox='category' href='" . $row['profile'] . "' data-caption='" . $row['profile'] . "'><img src='" . $row['profile'] . "' title='" . $row['profile'] . "' height='50' /></a>";
-                } else {
-                    $tempRow['profile'] = 'No Image';
-                }
                 $tempRow['operate'] = $operate;
                 $rows[] = $tempRow;
             }

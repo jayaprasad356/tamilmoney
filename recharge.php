@@ -151,6 +151,10 @@ curl_close($curl);
             right: 20px;
             font-size: 1rem;
         }
+        .blue-underline {
+            text-decoration: underline;
+            text-decoration-color: blue;
+        }
         @media (max-width: 576px) {
             .withdrawal-container h2 {
                 font-size: 1.5rem;
@@ -168,7 +172,17 @@ curl_close($curl);
     <div class="row flex-nowrap">
     <?php include_once('sidebar.php'); ?>
         <div class="col py-3">
-        <h2>Choose About</h2>
+            <div class="col-md-6">
+                <div class="row">
+                    <h2>Choose Amount</h2>
+                </div>
+                <div class="row">
+                    <a href="https://www.example.com" class="text-primary blue-underline clickable">How to Pay?</a>
+                </div>
+            </div>
+
+            <br>
+         
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-6">

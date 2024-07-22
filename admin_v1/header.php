@@ -211,23 +211,20 @@ if ($_SESSION['role'] == 'admin') {
                         <span>Setting</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="app-update.php">
                         <i class="fa fa-bullseye"></i>
                         <span>App Update</span>
                     </a>
-                </li>
+                </li> -->
                 <?php } ?>
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="recharge.php">
                         <i class="fa fa-money"></i>
                         <span>Recharge</span>
                     </a>
-                </li>
-                <?php
-                if ($_SESSION['role'] == 'admin') {
-                     ?>
-                <li class="treeview">
+                </li> -->
+                <!-- <li class="treeview">
                     <a href="home_slides.php">
                         <i class="fa fa-image"></i>
                         <span>Home Slide</span>
@@ -238,26 +235,26 @@ if ($_SESSION['role'] == 'admin') {
                         <i class="fa fa-bullseye"></i>
                         <span>Explore</span>
                     </a>
-                </li>
-                <li class="treeview">
+                </li> -->
+                <!-- <li class="treeview">
                     <a href="payment_setting.php">
                         <i class="fa fa-image"></i>
                         <span>Payment Setting</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="treeview">
                     <a href="otp.php">
                         <i class="fa fa-lock"></i>
                         <span>OTP</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="hour-withdrawal-reports.php">
                         <i class="fa fa-clock"></i>
                         <span>Hour Withdrawal Reports</span>
                     </a>
-                </li>
-                <li class="treeview">
+                </li> -->
+                <!-- <li class="treeview">
                     <a href="markets.php">
                     <i class="fas fa-shopping-bag"></i>
                         <span>Markets</span>
@@ -268,8 +265,8 @@ if ($_SESSION['role'] == 'admin') {
                     <i class="fas fa-money"></i>
                         <span>Recharge Trans</span>
                     </a>
-                </li>
-                <li class="treeview">
+                </li> -->
+                <!-- <li class="treeview">
                     <a href="scratch_cards.php">
                     <i class="fas fa-gift"></i>
                         <span>Scratch Cards</span>
@@ -280,7 +277,7 @@ if ($_SESSION['role'] == 'admin') {
                     <i class="fas fa-bullseye"></i>
                         <span>Review</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="treeview">
                     <a href="pay_links.php">
                     <i class="fas fa-credit-card"></i>
@@ -293,7 +290,7 @@ if ($_SESSION['role'] == 'admin') {
                         <span>Recharge Orders</span>
                     </a>
                 </li>
-                <?php } ?>
+
             </section>
             <!-- /.sidebar -->
         </aside>

@@ -35,17 +35,13 @@ if (isset($_POST['btnUpdate'])) {
     $min_withdrawal = $db->escapeString(($_POST['min_withdrawal']));
     $max_withdrawal = $db->escapeString(($_POST['max_withdrawal']));
     $pay_video = $db->escapeString(($_POST['pay_video']));
-    $add_video = $db->escapeString(($_POST['add_video']));
-    $pay_gateway = $db->escapeString(($_POST['pay_gateway']));
-    $scratch_card = $db->escapeString(($_POST['scratch_card']));
     $withdrawal_status = $db->escapeString(($_POST['withdrawal_status']));
     $income_status = $db->escapeString(($_POST['income_status']));
     $withdrawal_ins = $db->escapeString(($_POST['withdrawal_ins']));
-    $review_video = $db->escapeString(($_POST['review_video']));
     
 
             $error = array();
-            $sql_query = "UPDATE settings SET whatsapp_group='$whatsapp_group',telegram_channel='$telegram_channel',min_withdrawal='$min_withdrawal',max_withdrawal='$max_withdrawal',pay_video='$pay_video',pay_gateway='$pay_gateway',scratch_card = '$scratch_card',withdrawal_status = '$withdrawal_status',income_status = '$income_status', withdrawal_ins = '$withdrawal_ins',review_video = '$review_video',add_video = '$add_video'  WHERE id=1";
+            $sql_query = "UPDATE settings SET whatsapp_group='$whatsapp_group',telegram_channel='$telegram_channel',min_withdrawal='$min_withdrawal',max_withdrawal='$max_withdrawal',pay_video='$pay_video',withdrawal_status = '$withdrawal_status',income_status = '$income_status', withdrawal_ins = '$withdrawal_ins'  WHERE id=1";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -124,27 +120,9 @@ $res = $db->getResult();
                                 <label for="">Pay Video</label><br>
                                 <input type="text" class="form-control" name="pay_video" value="<?= $res[0]['pay_video'] ?>">
                             </div>
-                            <div class="col-md-3">
-                                <label for="">Review Video</label><br>
-                                <input type="text" class="form-control" name="review_video" value="<?= $res[0]['review_video'] ?>">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="">Add Video</label><br>
-                                <input type="text" class="form-control" name="add_video" value="<?= $res[0]['add_video'] ?>">
-                            </div>
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Payment Gateway</label><br>
-                                <input type="checkbox" id="payment_button" class="js-switch" <?= isset($res[0]['pay_gateway']) && $res[0]['pay_gateway'] == 1 ? 'checked' : '' ?>>
-                                <input type="hidden" id="pay_gateway" name="pay_gateway" value="<?= isset($res[0]['pay_gateway']) && $res[0]['pay_gateway'] == 1 ? 1 : 0 ?>">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="">Scratch Card</label><br>
-                                <input type="checkbox" id="scratch_card_button" class="js-switch" <?= isset($res[0]['scratch_card']) && $res[0]['scratch_card'] == 1 ? 'checked' : '' ?>>
-                                <input type="hidden" id="scratch_card" name="scratch_card" value="<?= isset($res[0]['scratch_card']) && $res[0]['scratch_card'] == 1 ? 1 : 0 ?>">
-                            </div>
                             <div class="col-md-3">
                                 <label for="">Withdrawal Status</label><br>
                                 <input type="checkbox" id="withdrawal_status_button" class="js-switch" <?= isset($res[0]['withdrawal_status']) && $res[0]['withdrawal_status'] == 1 ? 'checked' : '' ?>>
