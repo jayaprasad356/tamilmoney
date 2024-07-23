@@ -41,7 +41,7 @@ if (isset($_POST['btnLogin'])) {
             } else {
                 if ($responseData !== null) {
                     // show error in dialog box
-                    echo "<script>alert('Error message: " . $responseData["message"] . "')</script>";
+                    echo "<script>alert('".$responseData["message"]."')</script>";
                 }
             }
         }

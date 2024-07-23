@@ -64,11 +64,11 @@
                             <div class="card">
                                 <div class="card-body py-4 mt-2">
                                     <div class="d-flex justify-content-center mb-4">
-                                        <img src="https://media.istockphoto.com/id/492529287/photo/portrait-of-happy-laughing-man.jpg?s=612x612&w=0&k=20&c=0xQcd69Bf-mWoJYgjxBSPg7FHS57nOfYpZaZlYDVKRE="
+                                        <img src="https://i.pinimg.com/736x/ae/c2/60/aec260543b7e65f0986ef4364c7a5776.jpg"
                                             class="rounded-circle shadow-1-strong" width="100" height="100" />
                                     </div>
-                                    <h5 class="font-weight-bold">John</h5>
-                                    <h6 class="font-weight-bold my-3">Founder at ET Company</h6>
+                                    <h5 class="font-weight-bold">Sneha</h5>
+                                    <h6 class="font-weight-bold my-3">Madurai,Tamil nadu</h6>
                                     <ul class="list-unstyled d-flex justify-content-center">
                                         <li><i class="bi bi-star-fill text-info"></i></li>
                                         <li><i class="bi bi-star-fill text-info"></i></li>
@@ -77,9 +77,7 @@
                                         <li><i class="bi bi-star-half text-info"></i></li>
                                     </ul>
                                     <p class="mb-2">
-                                        <i class="bi bi-quote quote-left pe-2"></i>Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat
-                                        ad velit ab hic tenetur.
+                                        <i class="bi bi-quote quote-left pe-2"></i>Money Book மிகவும் நம்பிக்கையான கம்பெனி நான் தினமும் Withdrawal எடுத்துக் கொண்டிருக்கிறேன், 😊 <i class="bi bi-quote quote-right pe-2"></i>
                                     </p>
                                 </div>
                             </div>
@@ -90,11 +88,11 @@
                             <div class="card">
                                 <div class="card-body py-4 mt-2">
                                     <div class="d-flex justify-content-center mb-4">
-                                        <img src="https://www.stryx.com/cdn/shop/articles/man-looking-attractive.jpg?v=1666662774"
+                                        <img src="img.jpg"
                                             class="rounded-circle shadow-1-strong" width="100" height="100" />
                                     </div>
-                                    <h5 class="font-weight-bold">Alex Carey</h5>
-                                    <h6 class="font-weight-bold my-3">Photographer at Studio LA</h6>
+                                    <h5 class="font-weight-bold">Reshma</h5>
+                                    <h6 class="font-weight-bold my-3">Chennai,Tamil nadu</h6>
                                     <ul class="list-unstyled d-flex justify-content-center">
                                         <li><i class="bi bi-star-fill text-info"></i></li>
                                         <li><i class="bi bi-star-fill text-info"></i></li>
@@ -103,9 +101,8 @@
                                         <li><i class="bi bi-star-fill text-info"></i></li>
                                     </ul>
                                     <p class="mb-2">
-                                        <i class="bi bi-quote quote-left pe-2"></i>Autem, totam debitis suscipit saepe
-                                        sapiente magnam officiis quaerat necessitatibus odio assumenda perferendis
-                                        labore laboriosam.
+                                        <i class="bi bi-quote quote-left pe-2"></i>இந்த App மிகவும் பயனுள்ளதாக உள்ளது நல்ல வருமானம் கிடைக்கிறது <i class="bi bi-quote quote-right pe-2"></i>
+
                                     </p>
                                 </div>
                             </div>
@@ -116,11 +113,11 @@
                             <div class="card">
                                 <div class="card-body py-4 mt-2">
                                     <div class="d-flex justify-content-center mb-4">
-                                        <img src="https://media.istockphoto.com/id/2043245952/photo/portrait-smile-and-business-woman-in-office-workplace-and-female-person-on-computer-in.webp?b=1&s=170667a&w=0&k=20&c=oe5sdtU9ZbOflBnSK7oa3ivYv2SXXS8A43SIhTUXO2s="
+                                        <img src="https://png.pngtree.com/png-vector/20230928/ourmid/pngtree-young-indian-man-png-image_10149661.png"
                                             class="rounded-circle shadow-1-strong" width="100" height="100" />
                                     </div>
-                                    <h5 class="font-weight-bold">Jenifer Winget</h5>
-                                    <h6 class="font-weight-bold my-3">Front-end Developer in NY</h6>
+                                    <h5 class="font-weight-bold">Arshath Ali</h5>
+                                    <h6 class="font-weight-bold my-3">Tiruvarur,Tamilnadu</h6>
                                     <ul class="list-unstyled d-flex justify-content-center">
                                         <li><i class="bi bi-star-fill text-info"></i></li>
                                         <li><i class="bi bi-star-fill text-info"></i></li>
@@ -129,9 +126,8 @@
                                         <li><i class="bi bi-star text-info"></i></li>
                                     </ul>
                                     <p class="mb-2">
-                                        <i class="bi bi-quote quote-left pe-2"></i>Cras sit amet nibh libero, in gravida
-                                        nulla metus scelerisque ante sollicitudin commodo cras purus odio,
-                                        vestibulum in tempus viverra turpis.
+                                        <i class="bi bi-quote quote-left pe-2"></i>இந்த நிறுவனத்தில் வாழ்க்கை முழுவதும் வருமானம் கிடைப்பது சந்தோஷம் <i class="bi bi-quote quote-right pe-2"></i>
+
                                     </p>
                                 </div>
                             </div>

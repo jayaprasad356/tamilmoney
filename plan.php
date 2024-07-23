@@ -36,9 +36,9 @@ if ($response === false) {
         // Store all plan details
         $plans = $responseData["data"];
     } else {
-        echo "Failed to fetch plan details.";
+    
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
         $plans = [];
     }
@@ -83,7 +83,7 @@ if (isset($_POST['btnactivate'])) {
         } else {
             // Failed to fetch transaction details
             if ($responseData !== null) {
-                echo "Error message: " . $responseData["message"];
+                echo "<script>alert('".$responseData["message"]."')</script>";
             }
         }
     }

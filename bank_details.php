@@ -61,10 +61,7 @@ if (isset($_POST['btnUpdate'])) {
             echo "<script>alert('$message');</script>";
     
         } else {
-            // echo "Failed to fetch transaction details.";
-            // if ($responseData !== null) {
-            //     echo " Error message: " . $responseData["message"];
-            // }
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
     }
 
@@ -120,7 +117,7 @@ if ($response === false) {
         }
     } else {
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
     }
 }

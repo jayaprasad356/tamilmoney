@@ -41,7 +41,7 @@ if (isset($_POST['btnPay'])) {
         } else {
             // Failed to fetch transaction details
             if ($responseData !== null) {
-                echo "Error message: " . $responseData["message"];
+                echo "<script>alert('".$responseData["message"]."')</script>";
             }
         }
     }
@@ -136,7 +136,7 @@ if ($response === false) {
     } else {
         $recharge = "Failed to fetch recharge.";
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
     }
 }

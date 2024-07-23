@@ -47,12 +47,13 @@ if ($response === false) {
             $today_income = $userdetails[0]["today_income"];
             $team_income = $userdetails[0]["team_income"];
         } else {
-            echo "No transactions found.";
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
     } else {
-        echo "Failed to fetch transaction details.";
+
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>alert('".$responseData["message"]."')</script>";
+    
         }
     }
 }

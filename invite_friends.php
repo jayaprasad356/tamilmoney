@@ -45,9 +45,8 @@ if ($response === false) {
             echo "No transactions found.";
         }
     } else {
-        echo "Failed to fetch transaction details.";
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
     }
 }
@@ -79,7 +78,7 @@ if ($response === false) {
     } else {
         $telegram_channel = "Failed to fetch telegram_channel.";
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
     }
 }

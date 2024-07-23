@@ -53,7 +53,7 @@ if (isset($_POST['btnUpdate'])) {
         } else {
             // Handle API response error
             if ($responseData !== null) {
-                echo "Error message: " . $responseData["message"];
+                echo "<script>alert('".$responseData["message"]."')</script>";
             } else {
                 echo "Unexpected error.";
             }

@@ -55,7 +55,7 @@ if ($income_status == 0) {
 $sql = "SELECT * FROM plan WHERE id = $plan_id ";
 $db->sql($sql);
 $plan = $db->getResult();
-
+$daily_income = $plan[0]['daily_income'];
 if (empty($plan)) {
     $response['success'] = false;
     $response['message'] = "Plans not found";
@@ -102,7 +102,7 @@ if (empty($user_plan)) {
 }
 $claim = $user_plan[0]['claim'];
 $user_plan_id = $user_plan[0]['id'];
-$daily_income = $user_plan[0]['income'];
+
 
 if ($claim == 0) {
     $response['success'] = false;

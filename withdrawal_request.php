@@ -41,7 +41,7 @@ if ($response === false) {
     } else {
         $balance = "Failed to fetch balance.";
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
     }
 }
@@ -86,7 +86,7 @@ if (isset($_POST['btnWithdrawal'])) {
         } else {
             // Failed to fetch transaction details
             if ($responseData !== null) {
-                echo "Error message: " . $responseData["message"];
+                echo "<script>alert('".$responseData["message"]."')</script>";
             }
         }
     }

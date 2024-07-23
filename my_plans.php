@@ -38,7 +38,7 @@ if ($response === false) {
     } else {
         ;
         if ($responseData !== null) {
-            echo " Error message: " . $responseData["message"];
+            echo "<script>alert('".$responseData["message"]."')</script>";
         }
         $plans = [];
     }
@@ -83,7 +83,7 @@ if (isset($_POST['btnIncome'])) {
         } else {
             // Failed to fetch transaction details
             if ($responseData !== null) {
-                echo "Error message: " . $responseData["message"];
+                echo "<script>alert('".$responseData["message"]."')</script>";
             }
         }
     }
