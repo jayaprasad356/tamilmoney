@@ -320,7 +320,7 @@ if (isset($_POST['btnSignup'])) {
                         },
                         success: function(response) {
                             crctotp = otp;
-                            mobilenum.value = mobile.value;
+                            mobilenum.value = mobile;
                             $("#mobile").prop("disabled", true);
                             alert("OTP Sent Successfully");
                         },

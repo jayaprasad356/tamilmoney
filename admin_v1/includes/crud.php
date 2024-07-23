@@ -1,7 +1,7 @@
 <?php
 
 
-define('DOMAIN_URL', 'http://localhost/tamil_money/admin_v1/'); /* chnage to your domain here - don't forget to add forward slash at the end of the URL like this "/" */
+define('DOMAIN_URL', 'https://tm.graymatterworks.com/admin_v1/'); /* chnage to your domain here - don't forget to add forward slash at the end of the URL like this "/" */
 define('ALLOW_MODIFICATION', 1);
 define('JWT_SECRET_KEY', '12345678'); /* chnage to your secret key here set it to anything you like*/
 define('MAIN_REFER', 'ATN');
@@ -16,15 +16,15 @@ class Database
      * Database class
      */
 
-    // private $db_host = "localhost";
-    // private $db_user = "u743445510_tamilmoney";
-    // private $db_pass = "Tamilmoney@2024"; 
-    // private $db_name = "u743445510_tamilmoney"; 
+     private $db_host = "localhost";
+     private $db_user = "u743445510_tamilmoney";
+     private $db_pass = "Tamilmoney@2024"; 
+     private $db_name = "u743445510_tamilmoney"; 
 
-    private $db_host = "localhost";
-    private $db_user = "root";
-    private $db_pass = ""; 
-    private $db_name = "bm"; 
+    //private $db_host = "localhost";
+    //private $db_user = "root";
+    //private $db_pass = ""; 
+    //private $db_name = "bm"; 
 
     private $con = false; // Check to see if the connection is active
     private $myconn = ""; // This will be our mysqli object

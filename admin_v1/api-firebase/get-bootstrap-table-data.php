@@ -135,6 +135,13 @@ $db->connect();
                 $tempRow['total_withdrawal'] = $row['total_withdrawal'];
                 $tempRow['team_income'] = $row['team_income'];
                 $tempRow['registered_datetime'] = $row['registered_datetime'];
+                $tempRow['latitude'] = $row['latitude'];
+                $tempRow['longitude'] = $row['longitude'];
+                if (!empty($row['profile'])) {
+                    $tempRow['profile'] = "<a data-lightbox='category' href='" . $row['profile'] . "' data-caption='" . $row['profile'] . "'><img src='" . $row['profile'] . "' title='" . $row['profile'] . "' height='50' /></a>";
+                } else {
+                    $tempRow['profile'] = 'No Image';
+                }
                 $tempRow['operate'] = $operate;
                 $rows[] = $tempRow;
             }
@@ -1293,6 +1300,7 @@ $rows = array();
 $tempRow = array();
 foreach ($res as $row) {
         $operate = ' <a class="text text-danger" href="delete-recharge_orders.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
+        $checkbox = '<input type="checkbox" name="enable[]" value="'.$row['id'].'">';
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
         $tempRow['mobile'] = $row['mobile'];
@@ -1305,6 +1313,7 @@ foreach ($res as $row) {
         $tempRow['status']="<p class='text text-primary'>Pending</p>";
     else
         $tempRow['status']="<p class='text text-danger'>Rejected</p>";
+        $tempRow['column'] = $checkbox;
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
@@ -1312,4 +1321,5 @@ foreach ($res as $row) {
     print_r(json_encode($bulkData));
 }
 $db->disconnect();
+
 
