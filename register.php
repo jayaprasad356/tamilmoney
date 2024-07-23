@@ -61,7 +61,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] === 'true') {
                     $_SESSION['id'] = $user_id;
                     $_SESSION['codes'] = 0;
                     $response['success'] = true;
-                    $response['redirect'] = 'index.php';
+                    $response['redirect'] = 'login.php';
                 } else {
                     $response['message'] = isset($responseData["message"]) ? $responseData["message"] : "Registration failed. Please try again.";
                 }
@@ -109,7 +109,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] === 'true') {
             width: 100%;
             margin-top:25px;
             border-radius: 10px;
-            border: 2px solid #fed346;
+            border: 2px solid #3eb3a8;
         }
         .btn-customs {
             width: 100%;
@@ -273,10 +273,10 @@ if (isset($_POST['ajax']) && $_POST['ajax'] === 'true') {
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-custom" name="btnSignup" style="background-color:#fed346; color:white; font-weight:bold;">Register</button>
+                    <button type="submit" class="btn btn-primary btn-custom" name="btnSignup" style="background-color:#3eb3a8; color:white; font-weight:bold;">Register</button>
                 </div>
                 <div class="text-center mt-3">
-                    <p><a href="index.php">Back to Login</a></p>
+                    <p><a href="login.php">Back to Login</a></p>
                 </div>
             </form>
         </div>

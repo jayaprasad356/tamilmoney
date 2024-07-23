@@ -36,7 +36,7 @@ if (isset($_POST['btnLogin'])) {
                     $_SESSION['id'] = $userdetails[0]["id"];
                     header("Location: dashboard.php");
                 } else {
-                    echo "<script>alert('No transactions found.')</script>";
+                    echo "No transactions found.";
                 }
             } else {
                 if ($responseData !== null) {
@@ -84,7 +84,7 @@ if (isset($_POST['btnLogin'])) {
             width: 100%;
             margin-top:25px;
             border-radius: 10px;
-            border: 2px solid #fed346;
+            border: 2px solid #3eb3a8;
             
         }
         .btn-customs {
@@ -112,6 +112,8 @@ if (isset($_POST['btnLogin'])) {
 <h2 class="text-center mt-5">Login</h2> <!-- Moved Register text outside the container -->
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="custom-container">
+        <center> <img src="admin_v1/dist/img/money.jpeg" alt="Logo" style="max-width: 150px; height: auto; margin-right: 10px; border-radius:10px;"></center>
+            
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                     <label for="number" style= "font-weight:bold;">Mobile Number:</label>
@@ -134,7 +136,10 @@ if (isset($_POST['btnLogin'])) {
                 </div>
                 
                 <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-custom" name="btnLogin"  style="background-color:#fed346; color:white; font-weight:bold;">Login</button>
+                <button type="submit" class="btn btn-custom" name="btnLogin"  style="background-color:#3eb3a8; color:white; font-weight:bold;">Login</button>
+                </div>
+                <div class="text-center mt-3">
+                    <p>Don't have an account? <a href="register.php">Create New Account</a></p>
                 </div>
             </form>
         </div>
