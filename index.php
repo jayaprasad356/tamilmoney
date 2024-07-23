@@ -36,7 +36,6 @@
     </style>
 </head>
 <body>
-<!-- Navbar with Logo and Login Button -->
 <nav class="navbar navbar-light bg-light navbar-custom">
     <div class="container-fluid">
         <div class="d-flex align-items-center">
