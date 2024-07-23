@@ -109,6 +109,38 @@ if ($response === false) {
 }
 
 curl_close($curl);
+
+// Fetch the user's current balance
+$apiUrl = API_URL . "user_details.php"; // Ensure this endpoint provides the user's balance
+
+$curl = curl_init($apiUrl);
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+if ($response === false) {
+    echo "Error: " . curl_error($curl);
+    $recharge = "N/A";
+} else {
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        $details = $responseData["data"];
+        if (!empty($details)) {
+            $recharge = $details[0]["recharge"];
+        } else {
+            $recharge = "No recharge information available.";
+        }
+    } else {
+        $recharge = "Failed to fetch recharge.";
+        if ($responseData !== null) {
+            echo " Error message: " . $responseData["message"];
+        }
+    }
+}
+curl_close($curl);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -174,7 +206,7 @@ curl_close($curl);
         <div class="col py-3">
             <div class="col-md-6">
                 <div class="row">
-                    <h2>Choose Amount</h2>
+                    <h3>Recharge Balance - <?php echo htmlspecialchars($recharge); ?></h3>
                 </div>
                 <div class="row">
                 <a href="https://www.example.com" style="color: #3eb3a8; text-decoration: underline; text-decoration-color: #3eb3a8;">How to Pay?</a>

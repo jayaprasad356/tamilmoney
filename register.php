@@ -115,6 +115,24 @@ if (isset($_POST['ajax']) && $_POST['ajax'] === 'true') {
             width: 100%;
             border-radius: 15px;
         }
+        .heading {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .heading h2, .heading h3 {
+            margin:10px;
+            font-weight: 600;
+        }
+        .heading h2 {
+            font-size: 1.5rem;
+            color: #3eb3a8;
+        }
+        .heading h3 {
+            font-size: 2rem;
+            color: #333;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
         @media (max-width: 576px) {
             .nowrap-mobile {
                 white-space: nowrap;
@@ -125,11 +143,20 @@ if (isset($_POST['ajax']) && $_POST['ajax'] === 'true') {
                 border-radius: 15px;
                 margin-top:6px;
             }
+            .heading h2 {
+                font-size: 1.2rem;
+            }
+            .heading h3 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-<h2 class="text-center mt-5">Register</h2> <!-- Moved Register text outside the container -->
+<div class="heading">
+<h3>Welcome to Money Book</h3>
+        <h2>Most Trusted App in India</h2>
+    </div>
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="custom-container">
             <form method="post" enctype="multipart/form-data">
