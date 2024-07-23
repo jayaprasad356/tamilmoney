@@ -1,4 +1,4 @@
 <?php
-define('DOMAIN_URL', 'https://tm.graymatterworks.com/');
-define('API_URL', 'https://tm.graymatterworks.com/admin_v1/api/');
+define('DOMAIN_URL', 'https://moneybook.site/');
+define('API_URL', 'https://moneybook.site/admin_v1/api/');
 ?>
