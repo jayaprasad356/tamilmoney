@@ -17,9 +17,9 @@ class Database
      */
 
      private $db_host = "localhost";
-     private $db_user = "u743445510_tamilmoney";
-     private $db_pass = "Tamilmoney@2024"; 
-     private $db_name = "u743445510_tamilmoney"; 
+     private $db_user = "u743445510_money_book";
+     private $db_pass = "Moneybook@2024"; 
+     private $db_name = "u743445510_money_book"; 
 
     //private $db_host = "localhost";
     //private $db_user = "root";

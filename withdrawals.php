@@ -1,5 +1,5 @@
 <?php
-include_once('includes/crud.php');
+include_once('includes/connection.php');
 session_start();
 
 $user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null; // Ensure user_id is set
@@ -102,7 +102,7 @@ curl_close($curl);
         <div class="col py-3">
             <div class="withdrawal-container" id="withdrawals">
                 <h2>Withdrawal List</h2>
-                <a href="withdrawal_request.php" class="btn btn-primary withdrawal-button">Request Withdrawal</a>
+                <a href="withdrawal_request.php"  style="background-color:#3eb3a8; color:white;" class="btn withdrawal-button">Request Withdrawal</a>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

@@ -1,5 +1,5 @@
 <?php
-include_once('includes/crud.php');
+include_once('includes/connection.php');
 session_start();
 
 // Ensure the user is logged in
@@ -139,7 +139,7 @@ if (isset($_POST['btnUpdate'])) {
                         <input type="password" class="form-control" id="confirmPassword" name="confirm_password" required>
                         <i class="bi bi-eye eye-icon" id="toggleConfirmPassword"></i>
                     </div>
-                    <button type="submit" name="btnUpdate" class="btn btn-primary">Set</button>
+                    <button type="submit" name="btnUpdate"  style="background-color:#3eb3a8; color:white;" class="btn">Set</button>
                 </form>
             </div>
         </div>

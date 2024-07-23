@@ -1,17 +1,19 @@
 <?php
-include_once('includes/crud.php');
+include_once('includes/connection.php');
 session_start();
 ob_start();
 
 $refer_code = isset($_GET['refer_code']) ? htmlspecialchars($_GET['refer_code']) : ''; 
 $isReferCodeSet = !empty($refer_code);
 
-function generateDeviceID()
-{
+function generateDeviceID() {
     return uniqid(); 
 }
 
-if (isset($_POST['btnSignup'])) {
+if (isset($_POST['ajax']) && $_POST['ajax'] === 'true') {
+    // Handle AJAX request
+    $response = array('success' => false, 'message' => 'Unknown error');
+
     $mobile = $_POST["mobilenum"];
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirmPassword"];
@@ -25,7 +27,7 @@ if (isset($_POST['btnSignup'])) {
     $device_id = generateDeviceID();
 
     if ($password !== $confirmPassword) {
-        echo "<script>alert('Password and Confirm Password do not match');</script>";
+        $response['message'] = 'Password and Confirm Password do not match';
     } else {
         if($otpstatus == '1'){
             $data = array(
@@ -39,59 +41,41 @@ if (isset($_POST['btnSignup'])) {
                 "referred_by" => $referred_by,
                 "device_id" => $device_id,
             );
-    
+
             $apiUrl = API_URL."register.php";
             $curl = curl_init($apiUrl);
-    
+
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    
-            $response = curl_exec($curl);
-    
-            if ($response === false) {
-                echo "Error: " . curl_error($curl);
-            } else {
-                $responseData = json_decode($response, true);
-    
-                if ($responseData === null) {
-                    echo "Error decoding API response.";
-                } else {
-                    if (isset($responseData["success"]) && $responseData["success"]) {
-                        // Registration successful
-                        $user_id = $responseData["data"][0]['id']; // Capture user_id from response
-                        $_SESSION['id'] = $user_id;
-                        $_SESSION['codes'] = 0;
-    
-                        // Redirect without user_id in the URL
-                        header("Location: dashboard.php");
-                        exit();
-                    } else {
-                        // Registration failed
-                        $message = isset($responseData["message"]) ? $responseData["message"] : "Registration failed. Please try again.";
-                        echo "<script>alert('$message');</script>";
-    
-                        if (isset($responseData["register_required"]) && $responseData["register_required"]) {
-                            header("Location: index.php");
-                            exit();
-                        }
-                    }
-                }
-            }
+
+            $responseData = json_decode(curl_exec($curl), true);
             curl_close($curl);
 
-        }else{
-            $message = 'Mobile number not verified';
-            echo "<script>alert('$message');</script>";
-
+            if ($responseData === null) {
+                $response['message'] = 'Error decoding API response.';
+            } else {
+                if (isset($responseData["success"]) && $responseData["success"]) {
+                    $user_id = $responseData["data"][0]['id'];
+                    $_SESSION['id'] = $user_id;
+                    $_SESSION['codes'] = 0;
+                    $response['success'] = true;
+                    $response['redirect'] = 'index.php';
+                } else {
+                    $response['message'] = isset($responseData["message"]) ? $responseData["message"] : "Registration failed. Please try again.";
+                }
+            }
+        } else {
+            $response['message'] = 'Mobile number not verified';
         }
-
-
     }
-}
 
+    echo json_encode($response);
+    exit();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -300,63 +284,83 @@ if (isset($_POST['btnSignup'])) {
 
 
     <script>
-        $(document).ready(function() {
-            var crctotp = '';
-            $("#sendOtpButton").click(function() {
-                var mobile = $("#mobile").val();
-                var mobilenum = document.getElementById("mobilenum");
-                if (mobile.length === 10) {
-                    var otp = Math.floor(100000 + Math.random() * 900000);
-                        $.ajax({
-                        url: "https://api.authkey.io/request",
-                        type: "GET",
-                        data: {
-                            authkey: "b45c58db6d261f2a",
-                            mobile: mobile,
-                            country_code: "91",
-                            sid: "9214",
-                            otp: otp,
-                            company: "Book Money"
-                        },
-                        success: function(response) {
-                            crctotp = otp;
-                            mobilenum.value = mobile;
-                            $("#mobile").prop("disabled", true);
-                            alert("OTP Sent Successfully");
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("AJAX request failed: ", status, error);
-                            alert("OTP Failed");
-                        }
-                    });
+$(document).ready(function() {
+    var crctotp = '';
 
-                }else{
-                    alert("Please enter a valid 10-digit mobile number.");
+    $("#sendOtpButton").click(function() {
+        var mobile = $("#mobile").val();
+        var mobilenum = document.getElementById("mobilenum");
+        if (mobile.length === 10) {
+            var otp = Math.floor(100000 + Math.random() * 900000);
+            $.ajax({
+                url: "https://api.authkey.io/request",
+                type: "GET",
+                data: {
+                    authkey: "b45c58db6d261f2a",
+                    mobile: mobile,
+                    country_code: "91",
+                    sid: "9214",
+                    otp: otp,
+                    company: "Book Money"
+                },
+                success: function(response) {
+                    crctotp = otp;
+                    mobilenum.value = mobile;
+                    $("#mobile").prop("disabled", true);
+                    alert("OTP Sent Successfully");
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX request failed: ", status, error);
+                    alert("OTP Failed");
                 }
-
             });
 
-            $("#verifyOtpButton").click(function() {
-                var otp = $("#otp").val();
-                var otpStatusElement = document.getElementById("otpstatus");
-                if (otp.length === 6) {
-                    if(otp == crctotp){
-                        otpStatusElement.value = "1";
-                        
+        } else {
+            alert("Please enter a valid 10-digit mobile number.");
+        }
+    });
 
-                        alert("OTP Verified Successfully");
-                    }else{
-                        otpStatusElement.value = "0";
-                        alert("OTP Wrong");
-                    }
+    $("#verifyOtpButton").click(function() {
+        var otp = $("#otp").val();
+        var otpStatusElement = document.getElementById("otpstatus");
+        if (otp.length === 6) {
+            if (otp == crctotp) {
+                otpStatusElement.value = "1";
+                alert("OTP Verified Successfully");
+            } else {
+                otpStatusElement.value = "0";
+                alert("OTP Wrong");
+            }
+        } else {
+            alert("Please enter a valid 6-digit OTP.");
+        }
+    });
 
+    $("form").submit(function(event) {
+        event.preventDefault();
+        var formData = $(this).serializeArray();
+        formData.push({name: 'ajax', value: 'true'});
 
-                }else{
-                    alert("Please enter a valid 6-digit otp.");
+        $.ajax({
+            url: "",  // The PHP file URL (current file if it's the same)
+            type: "POST",
+            data: $.param(formData),
+            success: function(response) {
+                var jsonResponse = JSON.parse(response);
+                if (jsonResponse.success) {
+                    window.location.href = jsonResponse.redirect;
+                } else {
+                    alert(jsonResponse.message);
                 }
-
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed: ", status, error);
+                alert("An error occurred. Please try again.");
+            }
         });
-    </script>
+    });
+});
+</script>
+
 </body>
 </html>

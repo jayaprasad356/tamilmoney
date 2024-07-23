@@ -13,6 +13,8 @@
         .sidebar {
             width: 200px; /* Default expanded width */
             transition: width 0.3s ease;
+            background-color: 
+            #3eb3a8; /* Custom background color */
         }
         .sidebar.collapsed {
             width: 60px; /* Collapsed width for mobile */
@@ -46,8 +48,8 @@
             }
             #menuToggle {
                 position:relative;
-                top: 10px;
-                right:11px;
+                top: 5px;
+                right:13px;
                 z-index: 1050;
             }
             #brandTitle {
@@ -60,11 +62,12 @@
                 top: 70px;
                 z-index: 1050;
             }
+            
         }
     </style>
 </head>
 <body>
-    <div class="sidebar bg-dark text-white d-flex flex-column align-items-start px-3 pt-2 min-vh-100">
+    <div class="sidebar text-white d-flex flex-column align-items-start px-3 pt-2 min-vh-100">
         <!-- Menu Toggle Button and Brand Title (visible only on mobile) -->
             <!-- Mobile Menu Toggle -->
             <div class="d-flex align-items-center mb-3 d-md-none">
@@ -148,6 +151,11 @@
                     <i class="fs-4 bi-headset"></i> <span class="ms-1">Customer Support</span>
                 </a>
             </li>
+            <li>
+                <a href="company_details.php" class="nav-link px-0 align-middle text-white">
+                    <i class="fs-4 bi-building"></i> <span class="ms-1">Company Details</span>
+                </a>
+            </li>
         </ul>
 
         <hr>
@@ -191,5 +199,6 @@
             });
         });
     </script>
+    <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.in/widget?wc=siq7f332814434ba123f5efbf2d82a7e47947952e33ecc6bf4b78f9f89edf3ad350" defer></script>
 </body>
 </html>

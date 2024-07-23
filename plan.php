@@ -1,5 +1,5 @@
 <?php
-include_once('includes/crud.php');
+include_once('includes/connection.php');
 session_start();
 
 // Check if the user is logged in
@@ -159,7 +159,7 @@ if (isset($_POST['btnactivate'])) {
 
                                     <form action="plan.php" method="post" style="display: inline;">
                                         <input type="hidden" name="plan_id" value="<?php echo htmlspecialchars($plan['id']); ?>">
-                                        <button type="submit" name="btnactivate" class="btn btn-success">Purchase</button>
+                                        <button type="submit" name="btnactivate"  style="background-color:#3eb3a8; color:white;" class="btn">Purchase</button>
                                     </form>
                                 </div>
                             </div>

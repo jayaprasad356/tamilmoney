@@ -1,6 +1,6 @@
 
 <?php
-include_once('includes/crud.php');
+include_once('includes/connection.php');
 session_start();
 if (!isset($_SESSION['id'])) {
     header("Location: login.php");
@@ -87,27 +87,29 @@ curl_close($curl);
             position: relative; 
             padding: 20px; 
         }
-        .withdrawal-container h2 {
+        .friends-container h2 {
             margin-bottom: 20px;
             font-size: 2rem;
         }
-        .withdrawal-button {
+        .friends-button {
             position: absolute;
             top: 20px;
             right: 20px;
             font-size: 1rem;
+             background-color:#3eb3a8;
         }
         .button{
             padding:10px;
+            background-color:#3eb3a8;
         }
         .form-container {
             max-width: 400px; 
         }
         @media (max-width: 576px) {
-            .withdrawal-container h2 {
+            .friends-container h2 {
                 font-size: 0.9rem;
             }
-            .withdrawal-button {
+            .friends-button {
                 font-size: 0.600rem;
                 top: 19px;
                 right: 8px;
@@ -129,7 +131,7 @@ curl_close($curl);
                 <label for="link" class="form-label">Invite Link</label>
                 <input type="text" class="form-control" id="inviteLink" name="link" value="https://tm.graymatterworks.com/register.php?refer_code=<?php echo $refer_code; ?>" disabled>
             </div>
-            <button type="button" id="copyButton" class="btn btn-primary">
+            <button type="button" id="copyButton" style="background-color:#3eb3a8; color:white;" class="btn">
                 <i class="fs-5 bi-copy"></i> Copy Link
             </button>
                 </form>

@@ -1,5 +1,5 @@
 <?php
-include_once('includes/crud.php');
+include_once('includes/connection.php');
 session_start();
 
 $user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null; // Ensure user_id is set
@@ -177,7 +177,8 @@ curl_close($curl);
                     <h2>Choose Amount</h2>
                 </div>
                 <div class="row">
-                    <a href="https://www.example.com" class="text-primary blue-underline clickable">How to Pay?</a>
+                <a href="https://www.example.com" style="color: #3eb3a8; text-decoration: underline; text-decoration-color: #3eb3a8;">How to Pay?</a>
+
                 </div>
             </div>
 
@@ -195,7 +196,7 @@ curl_close($curl);
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-primary" onclick="redirectToOptionLink(document.querySelector('.form-select'))">Pay</button>
+                        <button class="btn"  style="background-color:#3eb3a8; color:white;" onclick="redirectToOptionLink(document.querySelector('.form-select'))">Pay</button>
                     </div>
                 </div>
                 <br>
@@ -208,7 +209,7 @@ curl_close($curl);
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <button type="submit" name="btnPay" class="btn btn-primary">Submit Request</button>
+                            <button type="submit" name="btnPay"  style="background-color:#3eb3a8; color:white;" class="btn">Submit Request</button>
                         </div>
                 </form>
 

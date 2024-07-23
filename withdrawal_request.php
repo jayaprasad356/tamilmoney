@@ -1,5 +1,5 @@
 <?php
-include_once('includes/crud.php');
+include_once('includes/connection.php');
 session_start();
 
 // Ensure the user is logged in
@@ -159,7 +159,7 @@ if (isset($_POST['btnWithdrawal'])) {
         <div class="col py-3">
             <div class="withdrawal-container">
                 <h2>Withdrawal Request</h2>
-                <a href="withdrawals.php" class="btn btn-primary withdrawal-button">Back To Withdrawals</a>
+                <a href="withdrawals.php"  style="background-color:#3eb3a8; color:white;" class="btn withdrawal-button">Back To Withdrawals</a>
                 
                 <!-- Withdrawal Request Form -->
                 <div class="form-container mt-4">
@@ -173,7 +173,7 @@ if (isset($_POST['btnWithdrawal'])) {
                             <label for="amount" class="form-label">Enter Amount</label>
                             <input type="number" class="form-control" id="amount" name="amount" required>
                         </div>
-                        <button type="submit" name="btnWithdrawal" class="btn btn-primary">Submit Request</button>
+                        <button type="submit" name="btnWithdrawal"  style="background-color:#3eb3a8; color:white;" class="btn">Submit Request</button>
                     </form>
                 </div>
             </div>
