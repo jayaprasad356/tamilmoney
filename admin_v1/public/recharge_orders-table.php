@@ -1,45 +1,37 @@
 <?php
 
-if (isset($_POST['btnPaid']) && isset($_POST['enable'])) {
+if (isset($_POST['btnPaid']) && isset($_POST['enable']) && isset($_POST['price'])) {
+    $price = $db->escapeString($fn->xss_clean($_POST['price']));
 
     foreach ($_POST['enable'] as $enable) {
         $enable = $db->escapeString($fn->xss_clean($enable));
 
-        $sql = "SELECT user_id, amount, status FROM recharge_orders WHERE id = $enable";
+        $sql = "SELECT user_id FROM recharge_orders WHERE id = $enable";
         $db->sql($sql);
         $res = $db->getResult();
-
-        if (empty($res)) {
-            continue;
-        }
-
+        
         $user_id = $res[0]['user_id'];
-        $amount = $res[0]['amount'];
-        $status = $res[0]['status'];
 
-        if ($status != 1) {
-            $sql = "SELECT id FROM users WHERE id = $user_id";
+        $sql = "SELECT id FROM users WHERE id = $user_id";
+        $db->sql($sql);
+        $res = $db->getResult();
+        $num = $db->numRows($res);
+
+        if ($num == 1) {
+            $sql = "UPDATE recharge_orders SET amount = $price, status = 1 WHERE id = $enable";
             $db->sql($sql);
-            $res = $db->getResult();
-            $num = $db->numRows($res);
 
-            if ($num == 1) {
-                $sql = "UPDATE recharge_orders SET status = 1 WHERE id = $enable";
-                $db->sql($sql);
+            $datetime = date('Y-m-d H:i:s');
+            $type = 'recharge_orders';
+            $sql = "INSERT INTO transactions (`user_id`, `amount`, `datetime`, `type`) VALUES ('$user_id', '$price', '$datetime', '$type')";
+            $db->sql($sql);
 
-                $datetime = date('Y-m-d H:i:s');
-                $type = 'recharge_orders';
-
-                $sql = "INSERT INTO transactions (`user_id`, `amount`, `datetime`, `type`) VALUES ('$user_id', '$amount', '$datetime', '$type')";
-                $db->sql($sql);
-
-                $sql_query = "UPDATE users SET recharge = recharge + $amount, total_recharge = total_recharge + $amount WHERE id = $user_id";
-                $db->sql($sql_query);
-            }
+            $sql_query = "UPDATE users SET recharge = recharge + $price, total_recharge = total_recharge + $price WHERE id = $user_id";
+            $db->sql($sql_query);
         }
     }
     echo '<script>window.location.href = "recharge_orders.php";</script>';
-    exit;
+    exit; 
 }
 ?>
 
@@ -48,8 +40,8 @@ if (isset($_POST['btnPaid']) && isset($_POST['enable'])) {
 </section>
 <!-- Main content -->
 <section class="content">
-<form name="recharge_orders.php" method="post" enctype="multipart/form-data">
-<div class="row">
+<form name="recharge_form" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <div class="row">
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
@@ -57,10 +49,29 @@ if (isset($_POST['btnPaid']) && isset($_POST['enable'])) {
                             <h4 class="box-title">Filter by Status</h4>
                             <select id="status" name="status" class="form-control">
                                 <option value="0">Pending</option>
-                                <option value="1">Approved</option>
+                                <option value="1">Verified</option>
                                 <option value="1">Rejected</option>
                             </select>
-                        </div>   
+                        </div>
+                        <div class="col-md-3">
+                        <h4 class="box-title">Select or Enter Price</h4>
+                        <select id="price_select" class="form-control">
+                            <option value="">Select</option>
+                            <?php
+                            $sql = "SELECT price FROM `plan` WHERE price > 0 GROUP BY price ORDER BY id";
+                            $db->sql($sql);
+                            $result = $db->getResult();
+                            foreach ($result as $value) {
+                                ?>
+                                <option value="<?= $value['price'] ?>"><?= $value['price'] ?></option>
+                                <?php
+                            }
+                            ?>
+                            <option value="custom">Enter Price</option>
+                        </select>
+                        <input type="number" id="custom_price_input" class="form-control" placeholder="Enter price" style="display: none;">
+                        <input type="hidden" id="price" name="price">
+                    </div>
                     </div>
                     <div class="box-body table-responsive">
                         <div class="row">
@@ -142,5 +153,25 @@ if (isset($_POST['btnPaid']) && isset($_POST['enable'])) {
             }
         }
     }
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("price_select").addEventListener("change", function() {
+        if (this.value === "custom") {
+            document.getElementById("custom_price_input").style.display = "block";
+            document.getElementById("custom_price_input").setAttribute("name", "custom_price"); // change the name attribute for custom price
+            document.getElementById("price").value = ""; // clear the hidden input value
+        } else {
+            document.getElementById("custom_price_input").style.display = "none";
+            document.getElementById("custom_price_input").removeAttribute("name"); // remove the name attribute for custom price
+            document.getElementById("price").value = this.value; // set the hidden input value to selected price
+        }
+    });
+    
+    // Listen for changes in the custom price input
+    document.getElementById("custom_price_input").addEventListener("input", function() {
+        document.getElementById("price").value = this.value; // update the hidden input value
+    });
+});
 </script>
 
