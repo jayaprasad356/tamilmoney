@@ -9,18 +9,6 @@
     <!-- Bootstrap Icons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        /* Sidebar styles */
-        .sidebar {
-            background-color: #683cb8; /* Custom background color */
-            color: white; /* Text color */
-            min-height: 100vh; /* Full viewport height */
-            padding: 1rem 2rem; /* Padding */
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
-        }
-
         /* General container styles */
         .friends-container {
             position: relative;
