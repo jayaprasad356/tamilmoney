@@ -202,8 +202,8 @@ $db->connect();
                 $tempRow['daily_quantity'] = $row['daily_quantity'];
                 $tempRow['monthly_income'] = $row['monthly_income'];
                 $tempRow['invite_bonus'] = $row['invite_bonus'];
-                $tempRow['category'] = $row['category'];
                 $tempRow['unit'] = $row['unit'];
+                $tempRow['num_times'] = $row['num_times'];
                 if (!empty($row['image'])) {
                     $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
                 } else {

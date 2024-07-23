@@ -16,7 +16,6 @@ if (isset($_POST['btnAdd'])) {
         $unit = $db->escapeString(($_POST['unit']));
         $num_times = $db->escapeString(($_POST['num_times']));
         $stock = $db->escapeString(($_POST['stock']));
-        $category = $db->escapeString(($_POST['category']));
         $error = array();
        
         if (empty($products)) {
@@ -61,10 +60,10 @@ if (isset($_POST['btnAdd'])) {
         }
 
         $upload_image = 'upload/images/' . $filename;
-        $sql = "INSERT INTO plan (products,price,daily_quantity,unit,daily_income,monthly_income,invite_bonus,image,num_times,stock,category) VALUES ('$products','$price', '$daily_quantity','$unit','$daily_income','$monthly_income','$invite_bonus','$upload_image','$num_times','$stock','$category')";
+        $sql = "INSERT INTO plan (products,price,daily_quantity,unit,daily_income,monthly_income,invite_bonus,image,num_times,stock) VALUES ('$products','$price', '$daily_quantity','$unit','$daily_income','$monthly_income','$invite_bonus','$upload_image','$num_times','$stock')";
         $db->sql($sql);
     } else {
-            $sql_query = "INSERT INTO plan (products,price,daily_quantity,unit,daily_income,monthly_income,invite_bonus,num_times,stock,category) VALUES ('$products','$price','$daily_quantity','$unit','$daily_income','$monthly_income','$invite_bonus','$num_times','$stock','$category')";
+            $sql_query = "INSERT INTO plan (products,price,daily_quantity,unit,daily_income,monthly_income,invite_bonus,num_times,stock) VALUES ('$products','$price','$daily_quantity','$unit','$daily_income','$monthly_income','$invite_bonus','$num_times','$stock')";
             $db->sql($sql);
         }
             $result = $db->getResult();
@@ -160,14 +159,7 @@ if (isset($_POST['btnAdd'])) {
                                     <label for="exampleInputtitle">Unit</label> <i class="text-danger asterik">*</i>
                                     <input type="text" class="form-control" name="unit" required>
                                 </div>
-                                <div class='col-md-4'>
-                                    <label for="exampleInputEmail1">Category</label> <i class="text-danger asterik">*</i><?php echo isset($error['category']) ? $error['category'] : ''; ?>
-                                    <select id='category' name="category" class='form-control'>
-                                    <option value=''>--select--</option>
-                                    <option value='fruits'>fruits</option>
-                                      <option value='vegetables'>vegetables</option>
-                                    </select>
-                                    </div>
+                              
                             </div> 
                         </div> 
                         <br> 

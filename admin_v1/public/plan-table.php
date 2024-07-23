@@ -32,7 +32,6 @@
                                     <th data-field="num_times" data-sortable="true">Number of Times</th>
                                     <th data-field="image">Image</th>
                                     <th  data-field="stock" data-sortable="true">Stock</th>
-                                    <th  data-field="category" data-sortable="true">Category</th>
                                 </tr>
                             </thead>
                         </table>

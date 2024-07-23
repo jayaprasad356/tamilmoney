@@ -50,7 +50,6 @@ if ($num >= 1) {
         $temp['daily_quantity'] = $row['daily_quantity'];
         $temp['num_times'] = $row['num_times'];
         $temp['stock'] = $row['stock'];
-        $temp['category'] = $row['category'];
         $rows[] = $temp;
     }
     $response['success'] = true;

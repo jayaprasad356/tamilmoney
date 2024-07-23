@@ -24,9 +24,8 @@ if (isset($_POST['btnEdit'])) {
 	$invite_bonus = $db->escapeString(($_POST['invite_bonus']));
 	$num_times = $db->escapeString(($_POST['num_times']));
 	$stock = $db->escapeString(($_POST['stock']));
-	$category = $db->escapeString(($_POST['category']));
 	
-		$sql_query = "UPDATE plan SET products='$products',price='$price',daily_quantity='$daily_quantity',daily_income='$daily_income',monthly_income='$monthly_income',invite_bonus='$invite_bonus',unit='$unit',num_times = '$num_times',stock = '$stock',category = '$category' WHERE id =  $ID";
+		$sql_query = "UPDATE plan SET products='$products',price='$price',daily_quantity='$daily_quantity',daily_income='$daily_income',monthly_income='$monthly_income',invite_bonus='$invite_bonus',unit='$unit',num_times = '$num_times',stock = '$stock' WHERE id =  $ID";
 		$db->sql($sql_query);
 		$result = $db->getResult();             
 		if (!empty($result)) {
@@ -162,14 +161,6 @@ if (isset($_POST['btnCancel'])) { ?>
 									<label for="exampleInputEmail1">Unit</label><i class="text-danger asterik">*</i>
 									<input type="text" class="form-control" name="unit" value="<?php echo $res[0]['unit']; ?>">
 								</div>
-								<div class='col-md-4'>
-                                <label for="exampleInputEmail1">Category</label> <i class="text-danger asterik">*</i>
-                                    <select id='category' name="category" class='form-control'>
-									<option value=''>--select--</option>
-                                     <option value='fruits' <?php if ($res[0]['category'] == 'fruits') echo 'selected'; ?>>fruits</option>
-                                      <option value='vegetables' <?php if ($res[0]['category'] == 'vegetables') echo 'selected'; ?>>vegetables</option>
-                                    </select>
-                                </div>
                             </div> 
 						  </div> 
 						  <br>
