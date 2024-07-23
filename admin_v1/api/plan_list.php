@@ -59,7 +59,7 @@ if ($num >= 1) {
     print_r(json_encode($response));
 } else {
     $response['success'] = false;
-    $response['message'] = "No plans found for this category";
+    $response['message'] = "No plans found";
     print_r(json_encode($response));
 }
 ?>

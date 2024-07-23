@@ -36,7 +36,7 @@ if ($response === false) {
         // Store all plan details
         $plans = $responseData["data"];
     } else {
-        echo "Failed to fetch transaction details.";
+        echo "Failed to fetch plan details.";
         if ($responseData !== null) {
             echo " Error message: " . $responseData["message"];
         }

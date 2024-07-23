@@ -53,6 +53,37 @@ if ($response === false) {
 }
 
 curl_close($curl);
+// Fetch the user's current balance
+$apiUrl = API_URL . "settings.php"; // Ensure this endpoint provides the user's balance
+
+$curl = curl_init($apiUrl);
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+if ($response === false) {
+    echo "Error: " . curl_error($curl);
+    $telegram_channel = "N/A";
+} else {
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        $details = $responseData["data"];
+        if (!empty($details)) {
+            $telegram_channel = $details[0]["telegram_channel"];
+        } else {
+            $telegram_channel = "No telegram_channel information available.";
+        }
+    } else {
+        $telegram_channel = "Failed to fetch telegram_channel.";
+        if ($responseData !== null) {
+            echo " Error message: " . $responseData["message"];
+        }
+    }
+}
+curl_close($curl);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,6 +165,9 @@ curl_close($curl);
             <button type="button" id="copyButton" style="background-color:#3eb3a8; color:white;" class="btn">
                 <i class="fs-5 bi-copy"></i> Copy Link
             </button>
+            <button type="button" id="telegramButton" style="background-color:#3eb3a8; color:white;" class="btn">
+                <i class="fs-5 bi-telegram"></i> Join Telegram
+            </button>
                 </form>
             </div>
         </div>
@@ -163,6 +197,17 @@ curl_close($curl);
                     // Error message
                     console.error('Failed to copy: ', err);
                 });
+        });
+
+        var telegramButton = document.getElementById('telegramButton');
+        telegramButton.addEventListener('click', function() {
+            // Redirect to the Telegram channel
+            var telegramChannelUrl = <?php echo json_encode($telegram_channel); ?>;
+            if (telegramChannelUrl && telegramChannelUrl !== "N/A" && telegramChannelUrl !== "Failed to fetch telegram_channel.") {
+                window.open(telegramChannelUrl, '_blank');
+            } else {
+                alert('No valid Telegram channel URL available.');
+            }
         });
     });
 </script>
