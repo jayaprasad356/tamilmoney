@@ -25,9 +25,29 @@
             right: 15px;
             z-index: 999; /* Make sure the button stays on top */
         }
+        .navbar-custom {
+            padding: 0 15px;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3eb3a8;
+        }
     </style>
 </head>
 <body>
+<!-- Navbar with Logo and Login Button -->
+<nav class="navbar navbar-light bg-light navbar-custom">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center">
+            <!-- Logo Image -->
+            <img src="admin_v1/dist/img/money.jpeg" alt="Logo" class="me-2" style="max-width: 70px; height: auto; margin-right: 10px; border-radius:14px;">
+            <!-- Logo Text -->
+            <span class="logo-text">Money Book</span>
+        </div>
+    </div>
+</nav>
+
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col py-3">
@@ -126,7 +146,7 @@
 
 <!-- Login Button -->
 <div class="login-btn">
-    <a href="login.php"  style="background-color:#3eb3a8; color:white;" class="btn" >Login</a>
+    <a href="login.php" style="background-color:#3eb3a8; color:white;" class="btn">Login</a>
 </div>
 
 <!-- Bootstrap JS Bundle -->
