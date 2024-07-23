@@ -292,7 +292,7 @@ curl_close($curl);
                 function redirectToOptionLink(selectElement) {
                     var selectedOption = selectElement.value;
                     if (selectedOption) {
-                        window.location.href = selectedOption;
+                        window.open(selectedOption, '_blank');
                     }
                 }
             </script>
