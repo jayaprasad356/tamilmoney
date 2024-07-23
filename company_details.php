@@ -93,10 +93,10 @@
                 <div class="mt-4">
                     <h4>Company Name:</h4>
                     <p>Money Book</p>
-
+                     <br>
                     <h4>Company Address:</h4>
                     <p>Shakti Tower 1, 766, Anna Salai, Thousand Lights, Chennai, Tamil Nadu 600002</p>
-
+                     <br>
                     <h4>Company Registered Certificate:</h4>
                     <button class="btn  btn-custom" onclick="viewCertificate()">
                         <i class="bi bi-file-earmark-pdf"></i> View Certificate
