@@ -210,7 +210,7 @@ curl_close($curl);
                     <h3>Recharge Balance - <?php echo htmlspecialchars($recharge); ?></h3>
                 </div>
                 <div class="row">
-                <a href="https://www.example.com" style="color: #3eb3a8; text-decoration: underline; text-decoration-color: #3eb3a8;">How to Pay?</a>
+                <a href="recharge_video.mp4" style="color: #3eb3a8; text-decoration: underline; text-decoration-color: #3eb3a8;">How to Pay?</a>
 
                 </div>
             </div>
