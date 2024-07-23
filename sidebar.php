@@ -151,11 +151,6 @@
                     <i class="fs-4 bi-headset"></i> <span class="ms-1">Customer Support</span>
                 </a>
             </li>
-            <li>
-                <a href="company_details.php" class="nav-link px-0 align-middle text-white">
-                    <i class="fs-4 bi-building"></i> <span class="ms-1">Company Details</span>
-                </a>
-            </li>
         </ul>
 
         <hr>
