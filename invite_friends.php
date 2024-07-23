@@ -165,7 +165,8 @@ curl_close($curl);
             <button type="button" id="copyButton" style="background-color:#3eb3a8; color:white;" class="btn">
                 <i class="fs-5 bi-copy"></i> Copy Link
             </button>
-            <button type="button" id="telegramButton" style="background-color:#3eb3a8; color:white;" class="btn">
+            <br><br>
+            <button type="button" id="telegramButton" style="background-color:blue; color:white;" class="btn">
                 <i class="fs-5 bi-telegram"></i> Join Telegram
             </button>
                 </form>
