@@ -41,8 +41,6 @@ if (isset($_POST['btnCancel']) && isset($_POST['enable'])) {
         $result = $db->getResult();
     }
 }
-echo '<script>window.location.href = "recharge_orders.php";</script>';
-exit; 
 ?>
 
 <section class="content-header">
