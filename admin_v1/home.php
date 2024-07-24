@@ -147,7 +147,7 @@ include "header.php";
                             <p>Today Recharge Amount</p>
                         </div>
                         
-                        <a href="withdrawals.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="transactions.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
              </div>
