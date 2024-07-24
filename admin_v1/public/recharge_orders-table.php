@@ -6,19 +6,19 @@ if (isset($_POST['btnPaid']) && isset($_POST['enable']) && isset($_POST['price']
     foreach ($_POST['enable'] as $enable) {
         $enable = $db->escapeString($fn->xss_clean($enable));
 
-        $sql = "SELECT user_id FROM recharge_orders WHERE id = $enable";
+        $sql = "SELECT user_id FROM recharge_orders WHERE id = '$enable'";
         $db->sql($sql);
         $res = $db->getResult();
         
         $user_id = $res[0]['user_id'];
 
-        $sql = "SELECT id FROM users WHERE id = $user_id";
+        $sql = "SELECT id FROM users WHERE id = '$user_id'";
         $db->sql($sql);
         $res = $db->getResult();
         $num = $db->numRows($res);
 
         if ($num == 1) {
-            $sql = "UPDATE recharge_orders SET amount = $price, status = 1 WHERE id = $enable";
+            $sql = "UPDATE recharge_orders SET amount = '$price', status = 1 WHERE id = '$enable'";
             $db->sql($sql);
 
             $datetime = date('Y-m-d H:i:s');
@@ -26,21 +26,24 @@ if (isset($_POST['btnPaid']) && isset($_POST['enable']) && isset($_POST['price']
             $sql = "INSERT INTO transactions (`user_id`, `amount`, `datetime`, `type`) VALUES ('$user_id', '$price', '$datetime', '$type')";
             $db->sql($sql);
 
-            $sql_query = "UPDATE users SET recharge = recharge + $price, total_recharge = total_recharge + $price WHERE id = $user_id";
+            $sql_query = "UPDATE users SET recharge = recharge + '$price', total_recharge = total_recharge + '$price' WHERE id = '$user_id'";
             $db->sql($sql_query);
         }
     }
     echo '<script>window.location.href = "recharge_orders.php";</script>';
     exit; 
 }
+
 if (isset($_POST['btnCancel']) && isset($_POST['enable'])) {
     foreach ($_POST['enable'] as $enable) {
         $enable = $db->escapeString($fn->xss_clean($enable));
-        $sql = "UPDATE recharge_orders SET status = 2 WHERE id = $enable";
+        $sql = "UPDATE recharge_orders SET status = 2 WHERE id = '$enable'";
         $db->sql($sql);
         $result = $db->getResult();
     }
+    echo '<script>window.location.href = "recharge_orders.php";</script>';
 }
+
 ?>
 
 <section class="content-header">
@@ -58,7 +61,7 @@ if (isset($_POST['btnCancel']) && isset($_POST['enable'])) {
                             <select id="status" name="status" class="form-control">
                                 <option value="0">Pending</option>
                                 <option value="1">Verified</option>
-                                <option value="1">Rejected</option>
+                                <option value="2">Rejected</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -87,10 +90,10 @@ if (isset($_POST['btnCancel']) && isset($_POST['enable'])) {
                                 <div class="text-left col-md-2">
                                     <input type="checkbox" onchange="checkAll(this)" name="chk[]"> Select All</input>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-1">
                                     <button type="submit" class="btn btn-success" name="btnPaid">Verify</button>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-3">
                         <button type="submit" class="btn btn-danger" name="btnCancel">Cancel</button>
                     </div>
                             </div>
