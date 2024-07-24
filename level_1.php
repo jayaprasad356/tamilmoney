@@ -104,7 +104,7 @@ curl_close($curl);
                                     <td><?php echo htmlspecialchars($transaction['mobile']); ?></td>
                                     <td><?php echo htmlspecialchars($transaction['registered_datetime']); ?></td>
                                     <td><?php echo htmlspecialchars($transaction['team_size']); ?></td>
-                                    <td><?php echo htmlspecialchars($transaction['team_income']); ?></td>
+                                    <td><?php echo htmlspecialchars($transaction['assets']); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
