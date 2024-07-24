@@ -33,6 +33,16 @@ if (isset($_POST['btnPaid']) && isset($_POST['enable']) && isset($_POST['price']
     echo '<script>window.location.href = "recharge_orders.php";</script>';
     exit; 
 }
+if (isset($_POST['btnCancel']) && isset($_POST['enable'])) {
+    foreach ($_POST['enable'] as $enable) {
+        $enable = $db->escapeString($fn->xss_clean($enable));
+        $sql = "UPDATE recharge_orders SET status = 2 WHERE id = $enable";
+        $db->sql($sql);
+        $result = $db->getResult();
+    }
+}
+echo '<script>window.location.href = "recharge_orders.php";</script>';
+exit; 
 ?>
 
 <section class="content-header">
@@ -82,6 +92,9 @@ if (isset($_POST['btnPaid']) && isset($_POST['enable']) && isset($_POST['price']
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-success" name="btnPaid">Verify</button>
                                 </div>
+                                <div class="col-md-1">
+                        <button type="submit" class="btn btn-danger" name="btnCancel">Cancel</button>
+                    </div>
                             </div>
                         </div>
                         <table id='users_table' class="table table-hover" data-toggle="table" data-url="api-firebase/get-bootstrap-table-data.php?table=recharge_orders" data-page-list="[5, 10, 20, 50, 100, 200]" data-show-refresh="true" data-show-columns="true" data-side-pagination="server" data-pagination="true" data-search="true" data-trim-on-search="false" data-filter-control="true" data-query-params="queryParams" data-sort-name="id" data-sort-order="desc" data-show-export="false" data-export-types='["txt","excel"]' data-export-options='{
