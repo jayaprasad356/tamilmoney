@@ -1304,7 +1304,7 @@ foreach ($res as $row) {
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['amount'] = $row['amount'];
         $tempRow['datetime'] = $row['datetime'];
-        $tempRow['order_id'] = $row['datetime'];
+        $tempRow['order_id'] = $row['order_id'];
         if($row['status']==1)
         $tempRow['status'] ="<p class='text text-success'>Approved</p>";
     elseif($row['status']==0)

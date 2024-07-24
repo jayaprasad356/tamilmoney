@@ -117,6 +117,39 @@ include "header.php";
                         
                     </div>
                 </div>
+                <div class="col-lg-4 col-xs-6">
+                    <div class="small-box bg-primary">
+                    <div class="inner">
+                            <h3><?php
+                             $sql = "SELECT COUNT(id) AS count  FROM recharge_orders WHERE status = 0";
+                             $db->sql($sql);
+                             $res = $db->getResult();
+                             $count = $res[0]['count'];
+                             echo $count;
+                              ?></h3>
+                            <p>Pending Recharge</p>
+                        </div>
+                        
+                        <a href="recharge_orders.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-6">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                        <h3><?php
+                        $currentdate = date("Y-m-d");
+                            $sql = "SELECT SUM(amount) AS amount  FROM  transactions  WHERE type = 'recharge_orders' AND DATE(datetime) = '$currentdate'";
+                            $db->sql($sql);
+                            $res = $db->getResult();
+                            $totalamount = $res[0]['amount'];
+                            echo "₹".$totalamount;
+                             ?></h3>
+                            <p>Today Recharge Amount</p>
+                        </div>
+                        
+                        <a href="transactions.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
              </div>
         </section>
         <?php } ?>
