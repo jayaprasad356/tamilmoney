@@ -1,3 +1,58 @@
+
+<?php
+include_once('includes/connection.php');
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null; // Ensure user_id is set
+
+if (!$user_id) {
+    header("Location: index.php");
+    exit();
+}
+
+$data = array(
+    "user_id" => $user_id,
+);
+
+$apiUrl = API_URL."user_details.php";
+
+
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        // Display transaction details
+        $users = $responseData["data"];
+        if (!empty($users)) {
+            $name = $users[0]["name"];
+        } else {
+            echo "<script>alert('".$responseData["message"]."')</script>";
+        }
+    } else {
+
+        if ($responseData !== null) {
+            echo "<script>alert('".$responseData["message"]."')</script>";
+    
+        }
+    }
+}
+
+curl_close($curl);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +68,7 @@
         .sidebar {
             width: 200px; /* Default expanded width */
             transition: width 0.3s ease;
-            background-color: 
-            #3eb3a8; /* Custom background color */
+            background-color: #3eb3a8; /* Custom background color */
         }
         .sidebar.collapsed {
             width: 60px; /* Collapsed width for mobile */
@@ -32,6 +86,7 @@
         .nav-link i {
             margin-right: 10px;
         }
+       
         /* Media query to hide text on mobile when collapsed */
         @media (max-width: 768px) {
             .sidebar {
@@ -62,7 +117,21 @@
                 top: 70px;
                 z-index: 1050;
             }
-            
+            #dropdownUser1 {
+                display: none; /* Hide desktop dropdown */
+            }
+            #brandDropdown {
+                display: inline; /* Show mobile dropdown */
+            }
+        }
+        .user-profile-img {
+            display: inline;
+        }
+        .user-profile-name {
+            display: none;
+        }
+        .sidebar.expanded .user-profile-name {
+            display: inline;
         }
     </style>
 </head>
@@ -159,14 +228,28 @@
         </ul>
 
         <hr>
-        <div class="dropdown pb-4">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+         <!-- User Profile Dropdown Menu for Desktop -->
+         <div id="dropdownUser1" class="dropdown pb-4 d-none d-md-block">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User" width="30" height="30" class="rounded-circle">
-                <span class="d-none d-sm-inline mx-1">more</span>
+                <span class="d-none d-sm-inline mx-1"><?php echo $name; ?></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li> -->
+                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+            </ul>
+        </div>
+
+        <div id="brandDropdown" class="dropdown pb-4 d-md-none">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User" width="30" height="30" class="rounded-circle">
+                <span class="user-profile-name ms-2"><?php echo $name; ?></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>

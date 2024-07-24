@@ -87,8 +87,9 @@
 <body>
 <div class="container-fluid">
     <div class="row flex-nowrap">
-    <?php include_once('sidebar.php'); ?>
-        <div class="col-md-8">
+        <?php include_once('sidebar.php'); ?>
+        <div class="col py-3">
+         <div class="col-md-8">
             <div class="friends-container">
                 <h2>Company Details</h2>
                 <!-- Company Details -->
