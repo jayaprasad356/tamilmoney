@@ -133,6 +133,23 @@ include "header.php";
                         <a href="recharge_orders.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
+                <div class="col-lg-4 col-xs-6">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                        <h3><?php
+                        $currentdate = date("Y-m-d");
+                            $sql = "SELECT SUM(amount) AS amount  FROM  transactions  WHERE type = 'recharge_orders' AND DATE(datetime) = '$currentdate'";
+                            $db->sql($sql);
+                            $res = $db->getResult();
+                            $totalamount = $res[0]['amount'];
+                            echo "₹".$totalamount;
+                             ?></h3>
+                            <p>Today Recharge Amount</p>
+                        </div>
+                        
+                        <a href="withdrawals.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
              </div>
         </section>
         <?php } ?>
