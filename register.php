@@ -324,7 +324,7 @@ $(document).ready(function() {
                 url: "https://api.authkey.io/request",
                 type: "GET",
                 data: {
-                    authkey: "64045a300411033f",
+                    authkey: "b45c58db6d261f2a",
                     mobile: mobile,
                     country_code: "91",
                     sid: "9214",
