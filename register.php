@@ -329,7 +329,7 @@ $(document).ready(function() {
                     country_code: "91",
                     sid: "14031",
                     otp: otp,
-                    company: "Book Money"
+                    company: "E-Books"
                 },
                 success: function(response) {
                     crctotp = otp;
