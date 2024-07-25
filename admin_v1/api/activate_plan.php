@@ -163,16 +163,16 @@ if ($recharge >= $price) {
         if ($num == 1) {
             $r_id = $res[0]['id'];
             $r_refer_code = $res[0]['refer_code'];
-            // if($plan_id == 1){
-            //     $sql = "SELECT id FROM users WHERE referred_by = '$r_refer_code' AND valid = 0";
-            //     $db->sql($sql);
-            //     $res = $db->getResult();
-            //     $num = $db->numRows($res);
-            //     if($num > 5){
-            //         $invite_bonus = 0;
+            if($plan_id == 1){
+                $sql = "SELECT id FROM users WHERE referred_by = '$r_refer_code' AND valid = 0";
+                $db->sql($sql);
+                $res = $db->getResult();
+                $num = $db->numRows($res);
+                if($num > 5){
+                    $invite_bonus = 0;
 
-            //     }
-            // }
+                }
+            }
             $sql = "UPDATE users SET balance = balance + $invite_bonus,today_income = today_income + $invite_bonus,total_income = total_income + $invite_bonus,team_income = team_income + $invite_bonus  WHERE refer_code = '$referred_by'";
             $db->sql($sql);
 
