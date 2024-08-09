@@ -165,8 +165,8 @@ curl_close($curl);
                 </a>
             </li>
             <li>
-                <a href="demo_recharge.php" class="nav-link px-0 align-middle text-white">
-                    <i class="fs-4 bi-cash"></i> <span class="ms-1">Demo Recharge</span>
+                <a href="ins_recharge.php" class="nav-link px-0 align-middle text-white">
+                    <i class="fs-4 bi-cash"></i> <span class="ms-1">Instant Recharge</span>
                 </a>
             </li>
             <li>
