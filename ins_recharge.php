@@ -242,7 +242,7 @@ curl_close($curl);
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <button type="submit" name="btnPay"  style="background-color:#3eb3a8; color:white;" class="btn">Submit Request</button>
+                            <button type="submit" name="btnPay"  style="background-color:#3eb3a8; color:white;" class="btn">Add to Wallet </button>
                         </div>
                 </form>
 
