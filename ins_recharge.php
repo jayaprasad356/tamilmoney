@@ -36,7 +36,7 @@ if (isset($_POST['btnPay'])) {
             // Alert and redirect
             echo "<script>
                     alert('$message');
-                    window.location.href = 'recharge.php';
+                    window.location.href = 'ins_recharge.php';
                   </script>";
         } else {
             // Failed to fetch transaction details
@@ -234,7 +234,7 @@ curl_close($curl);
                 </div>
                 <br>
                 <div class="row">
-                <form action="recharge.php" method="post">
+                <form action="ins_recharge.php" method="post">
                     <div class="col-md-9">
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Enter Order Id</label>
