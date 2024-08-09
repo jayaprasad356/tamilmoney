@@ -65,6 +65,8 @@ $sql = "INSERT INTO transactions (`user_id`,`amount`,`datetime`,`type`)VALUES('$
 $db->sql($sql);
 $sql_query = "UPDATE users SET recharge = recharge + $amount ,total_recharge = total_recharge + $amount  WHERE id = $user_id";
 $db->sql($sql_query);
+$sql = "UPDATE payments SET claim = 1 WHERE order_id = '$order_id'";
+$db->sql($sql);
 
 $response['success'] = true;
 $response['message'] = "Your Amount Added to your wallet";
