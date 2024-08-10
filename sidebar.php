@@ -159,14 +159,14 @@ curl_close($curl);
                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1">Dashboard</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="recharge.php" class="nav-link px-0 align-middle text-white">
                     <i class="fs-4 bi-cash"></i> <span class="ms-1">Recharge</span>
                 </a>
-            </li>
+            </li> -->
             <li>
-                <a href="demo_recharge.php" class="nav-link px-0 align-middle text-white">
-                    <i class="fs-4 bi-cash"></i> <span class="ms-1">Demo Recharge</span>
+                <a href="ins_recharge.php" class="nav-link px-0 align-middle text-white">
+                    <i class="fs-4 bi-cash"></i> <span class="ms-1">Instant Recharge</span>
                 </a>
             </li>
             <li>
