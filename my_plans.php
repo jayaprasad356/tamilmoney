@@ -167,7 +167,10 @@ if (isset($_POST['btnIncome'])) {
                     <?php endforeach; ?>
                 </div>
                 <div class="row">
-                <img class="img-fluid" src="ad.png" alt="Ad" >
+                <a href="https://penta-logistics.web.app/" target="_blank">
+                    <img class="img-fluid" src="ad.png" alt="Ad">
+                </a>
+
 
                 </div>
             </div>
