@@ -128,55 +128,7 @@ if (isset($_POST['btnIncome'])) {
     </style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row flex-nowrap">
-        <?php include_once('sidebar.php'); ?>
-        <div class="col py-3">
-            <div id="plansSection" class="plansSection-container">
-                <div class="row">
-                    <!-- Loop through all plans and display each one -->
-                    <?php foreach ($plans as $plan): ?>
-                        <div class="col-md-4 mb-4">
-                            <div class="card" style="width: 18rem;">
-                                <!-- Use the dynamic image URL -->
-                                <img class="card-img-top img-fluid" src="<?php echo htmlspecialchars($plan['image']); ?>" alt="Plan image" style="max-width: 100%; height: 200px; width: 300px;">
 
-                                <div class="card-body">
-                                <h5 class="card-title">
-                                        <strong><?php echo htmlspecialchars($plan['products']); ?></strong>
-                                    </h5>
-                                    <p class="card-text">
-                                        Price: <strong><?php echo htmlspecialchars($plan['price']); ?></strong>
-                                    </p>
-                                    <p class="card-text">
-                                        Daily Income: <strong><?php echo htmlspecialchars($plan['daily_income']); ?></strong>
-                                    </p>
-                                    <p class="card-text">
-                                        Invite Bonus: <strong><?php echo htmlspecialchars($plan['invite_bonus']); ?></strong>
-                                    </p>
-                                    <p class="card-text">
-                                        Validity: <span class="highlight">Unlimited Days</span>
-                                    </p>
-                                    <form  method="post" style="display: inline;">
-                                        <input type="hidden" name="plan_id" value="<?php echo htmlspecialchars($plan['plan_id']); ?>">
-                                        <button type="submit" name="btnIncome" class="btn btn-success" <?php echo ($plan['claim'] == '0') ? 'disabled' : ''; ?>>Get Income</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="row">
-                <a href="https://penta-logistics.web.app/" target="_blank">
-                    <img class="img-fluid" src="ad.png" alt="Ad">
-                </a>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Bootstrap JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

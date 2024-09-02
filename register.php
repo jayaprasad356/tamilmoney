@@ -327,9 +327,8 @@ $(document).ready(function() {
                     authkey: "64045a300411033f",
                     mobile: mobile,
                     country_code: "91",
-                    sid: "14031",
-                    otp: otp,
-                    company: "E-Books"
+                    sid: "14324",
+                    otp: otp
                 },
                 success: function(response) {
                     crctotp = otp;
