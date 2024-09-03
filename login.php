@@ -141,6 +141,7 @@ if (isset($_POST['btnLogin'])) {
                 </div>
                 <div class="text-center mt-3">
                     <p>Don't have an account? <a href="register.php">Create New Account</a></p>
+                    <p><a href="forgot_password.php" style="color: red;"><i class="fas fa-lock"></i> Forgot Password</a></p>
                 </div>
             </form>
         </div>
