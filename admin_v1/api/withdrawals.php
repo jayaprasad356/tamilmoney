@@ -93,8 +93,12 @@ if ($amount >= $min_withdrawal) {
             return false;
         } else {
 
-            $sql = "INSERT INTO withdrawals (`user_id`,`amount`,`balance`,`status`,`datetime`) VALUES ('$user_id','$amount',$balance,0,'$datetime')";
+            $deducted_amount = $amount * 0.20;
+            $final_amount = $amount - $deducted_amount;
+
+            $sql = "INSERT INTO withdrawals (`user_id`,`amount`,`balance`,`status`,`datetime`) VALUES ('$user_id','$final_amount',$balance,0,'$datetime')";
             $db->sql($sql);
+
             $sql = "UPDATE users SET balance = balance - '$amount',total_withdrawal = total_withdrawal + '$amount' WHERE id='$user_id'";
             $db->sql($sql);
 
