@@ -58,7 +58,7 @@ $sql = "SELECT id FROM transactions WHERE amount = 1650 AND type = 'invite_bonus
 $db->sql($sql);
 $user_coupons = $db->getResult();
 $num = $db->numRows($user_coupons);
-if ($num <= $min_refers) {
+if ($num < $min_refers) {
     $response['success'] = false;
     $response['message'] = "Minimum ". $min_refers . " Refers Required";
     echo json_encode($response);
