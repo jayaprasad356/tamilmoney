@@ -13,7 +13,7 @@ if (isset($_POST['btnClaim'])) {
     $order_id = $_POST['order_id'];
     $data = array(
         "user_id" => $user_id,
-        "coupon_id" => $coupon_id,
+        "coupon_num" => $coupon_id,
     );
     $apiUrl = API_URL . "coupon_claim.php";
 
