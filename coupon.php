@@ -113,7 +113,7 @@ if (isset($_POST['btnClaim'])) {
     <?php include_once('sidebar.php'); ?>
         <div class="col py-3">
                 <div class="row">
-                <form action="ins_recharge.php" method="post">
+                <form action="coupon.php" method="post">
                     <div class="col-md-9">
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Enter Coupon Number</label>
