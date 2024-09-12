@@ -10,7 +10,7 @@ if (!$user_id) {
 }
 
 if (isset($_POST['btnClaim'])) {
-    $order_id = $_POST['order_id'];
+    $coupon_id = $_POST['coupon_id'];
     $data = array(
         "user_id" => $user_id,
         "coupon_num" => $coupon_id,
