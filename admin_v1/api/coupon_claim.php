@@ -54,7 +54,7 @@ $coupon_id = $coupon[0]['id'];
 $amount = $coupon[0]['amount'];
 $min_refers = $coupon[0]['min_refers'];
 
-$sql = "SELECT id FROM transactions WHERE amount = 1650 AND type = 'invite_bonus' AND user_id = $user_id AND DATE(datetime) = '2024-09-12'";
+$sql = "SELECT id FROM transactions WHERE amount = 1650 AND type = 'invite_bonus' AND user_id = $user_id AND DATE(datetime) = '$currentdate'";
 $db->sql($sql);
 $user_coupons = $db->getResult();
 $num = $db->numRows($user_coupons);
