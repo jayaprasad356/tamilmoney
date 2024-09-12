@@ -54,11 +54,11 @@ $coupon_id = $coupon[0]['id'];
 $amount = $coupon[0]['amount'];
 $min_refers = $coupon[0]['min_refers'];
 
-$sql = "SELECT id FROM transactions WHERE amount = 1650 AND user_id = $user_id AND type = 'invite_bonus' AND DATE(datetime) = '$currentdate'";
+$sql = "SELECT id FROM transactions WHERE amount = 1650 AND type = 'invite_bonus' AND user_id = $user_id AND DATE(datetime) = '2024-09-12'";
 $db->sql($sql);
 $user_coupons = $db->getResult();
 $num = $db->numRows($user_coupons);
-if ($num >= $min_refers) {
+if ($num < $min_refers) {
     $response['success'] = false;
     $response['message'] = "Minimum ". $min_refers . " Refers Required";
     echo json_encode($response);
@@ -76,7 +76,7 @@ if ($num >= 1) {
     return;
 }
 
-$sql = "INSERT INTO `user_coupons` (`coupon_id`,`user_id`, `datetime`) VALUES ($coupon_id,$user_id,'$datetime'";
+$sql = "INSERT INTO `user_coupons` (`coupon_id`,`user_id`, `datetime`) VALUES ($coupon_id,$user_id,'$datetime')";
 $db->sql($sql);
 
 $sql = "UPDATE users SET balance = balance + $amount, today_income = today_income + $amount, total_income = total_income + $amount WHERE id = $user_id";
