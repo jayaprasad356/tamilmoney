@@ -196,6 +196,11 @@ curl_close($curl);
                 </ul>
             </li>
             <li>
+                <a href="coupon.php" class="nav-link px-0 align-middle text-white">
+                    <i class="fs-4 bi-cash-stack"></i> <span class="ms-1">Coupon</span>
+                </a>
+            </li>
+            <li>
                 <a href="withdrawals.php" class="nav-link px-0 align-middle text-white">
                     <i class="fs-4 bi-cash-stack"></i> <span class="ms-1">Withdrawals</span>
                 </a>
