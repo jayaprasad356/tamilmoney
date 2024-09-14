@@ -1379,6 +1379,74 @@ if (isset($_GET['table']) && $_GET['table'] == 'payments') {
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
+
+if (isset($_GET['table']) && $_GET['table'] == 'user_coupons') {
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'date';
+    $order = 'DESC';
+
+    if (isset($_GET['date']) && $_GET['date'] != '') {
+        $selected_date = $db->escapeString($fn->xss_clean($_GET['date']));
+        $formatted_date = date('Y-m-d', strtotime($selected_date));
+        $where .= " AND DATE(l.datetime) = '$formatted_date'";
+    }
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+
+       
+
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $db->escapeString($fn->xss_clean($_GET['search']));
+            $where .= "AND (u.mobile LIKE '%" . $search . "%' OR u.name LIKE '%" . $search . "%') ";
+        }
+        
+    if (isset($_GET['sort'])) {
+        $sort = $db->escapeString($_GET['sort']);
+    }
+    if (isset($_GET['order'])) {
+        $order = $db->escapeString($_GET['order']);
+    }
+   
+    $join = "LEFT JOIN `users` u ON l.user_id = u.id LEFT JOIN `coupons` c ON l.coupon_id = c.id WHERE l.id IS NOT NULL " . $where;
+
+    $sql = "SELECT COUNT(l.id) AS total FROM `user_coupons` l " . $join;
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+   
+     $sql = "SELECT l.id AS id,l.*,u.name,u.mobile,c.coupon_num  FROM `user_coupons` l " . $join . " ORDER BY $sort $order LIMIT $offset, $limit";
+     $db->sql($sql);
+     $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+
+        $operate = ' <a class="text text-danger" href="delete-user_coupons.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['name'] = $row['name'];
+        $tempRow['mobile'] = $row['mobile'];
+        $tempRow['coupon_num'] = $row['coupon_num'];
+        $tempRow['datetime'] = $row['datetime'];
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
 $db->disconnect();
 
 
