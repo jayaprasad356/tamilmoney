@@ -58,10 +58,21 @@ if($coupon_num == "REFERPLATINUM200"){
     $sql = "SELECT id FROM transactions WHERE amount = 1650 AND type = 'invite_bonus' AND user_id = $user_id AND DATE(datetime) = '$currentdate'";
     $db->sql($sql);
     $user_coupons = $db->getResult();
-    $num = $db->numRows($user_coupons);
-    if ($num < $min_refers) {
+    $ucnum = $db->numRows($user_coupons);
+    if (empty($user_coupons)) {
         $response['success'] = false;
         $response['message'] = "Invalid Coupon";
+        echo json_encode($response);
+        return;
+    }
+
+    $sql = "SELECT id FROM user_coupons WHERE user_id = $user_id AND coupon_id = $coupon_id";
+    $db->sql($sql);
+    $user_coupons = $db->getResult();
+    $num = $db->numRows($user_coupons);
+    if ($num >= $ucnum) {
+        $response['success'] = false;
+        $response['message'] = "Already Claimed";
         echo json_encode($response);
         return;
     }
@@ -77,18 +88,21 @@ if($coupon_num == "JOINPLATINUM200"){
       $response['message'] = "Invalid Coupon";
       echo json_encode($response);
       return;
-  }
+    }
+    $sql = "SELECT id FROM user_coupons WHERE user_id = $user_id AND coupon_id = $coupon_id";
+    $db->sql($sql);
+    $user_coupons = $db->getResult();
+    $num = $db->numRows($user_coupons);
+    if ($num >= 1) {
+        $response['success'] = false;
+        $response['message'] = "Already Claimed";
+        echo json_encode($response);
+        return;
+    }
+
+  
 }
-$sql = "SELECT id FROM user_coupons WHERE user_id = $user_id AND coupon_id = $coupon_id";
-$db->sql($sql);
-$user_coupons = $db->getResult();
-$num = $db->numRows($user_coupons);
-if ($num >= 1) {
-    $response['success'] = false;
-    $response['message'] = "Already Claimed";
-    echo json_encode($response);
-    return;
-}
+
 
 $sql = "INSERT INTO `user_coupons` (`coupon_id`,`user_id`, `datetime`) VALUES ($coupon_id,$user_id,'$datetime')";
 $db->sql($sql);
