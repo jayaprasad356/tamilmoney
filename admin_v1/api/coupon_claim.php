@@ -54,17 +54,31 @@ $coupon_id = $coupon[0]['id'];
 $amount = $coupon[0]['amount'];
 $min_refers = $coupon[0]['min_refers'];
 
-$sql = "SELECT id FROM transactions WHERE amount = 1650 AND type = 'invite_bonus' AND user_id = $user_id AND DATE(datetime) = '$currentdate'";
-$db->sql($sql);
-$user_coupons = $db->getResult();
-$num = $db->numRows($user_coupons);
-if ($num < $min_refers) {
-    $response['success'] = false;
-    $response['message'] = "Minimum ". $min_refers . " Refers Required";
-    echo json_encode($response);
-    return;
+if($coupon_num == "REFERPLATINUM200"){
+    $sql = "SELECT id FROM transactions WHERE amount = 1650 AND type = 'invite_bonus' AND user_id = $user_id AND DATE(datetime) = '$currentdate'";
+    $db->sql($sql);
+    $user_coupons = $db->getResult();
+    $num = $db->numRows($user_coupons);
+    if ($num < $min_refers) {
+        $response['success'] = false;
+        $response['message'] = "Invalid Coupon";
+        echo json_encode($response);
+        return;
+    }
 }
 
+if($coupon_num == "JOINPLATINUM200"){
+     $sql = "SELECT id FROM user_plan WHERE  plan_id = 6 AND user_id = $user_id AND DATE(joined_date) = '$currentdate'";
+     $db->sql($sql);
+     $user_plans = $db->getResult();
+
+    if (empty($user_plans)) {
+      $response['success'] = false;
+      $response['message'] = "Invalid Coupon";
+      echo json_encode($response);
+      return;
+  }
+}
 $sql = "SELECT id FROM user_coupons WHERE user_id = $user_id AND coupon_id = $coupon_id";
 $db->sql($sql);
 $user_coupons = $db->getResult();
