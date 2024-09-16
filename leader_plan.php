@@ -153,9 +153,6 @@ if (isset($_POST['btnactivate'])) {
                                         Daily Income: <strong><?php echo '₹'.htmlspecialchars($plan['daily_income']); ?></strong>
                                     </p>
                                     <p class="card-text">
-                                        Invite Bonus: <strong><?php echo '₹'. htmlspecialchars($plan['invite_bonus']); ?></strong>
-                                    </p>
-                                    <p class="card-text">
                                             <p class="card-text" style="color: blue;">
                                                 Minimum <?php echo $plan['min_refers']; ?> Refers Need <strong><span style="color: blue;"><?php echo ''. htmlspecialchars($plan['num_times']); ?></span></strong>
                                             </p>
