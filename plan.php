@@ -12,7 +12,7 @@ if (!$user_id) {
 
 $data = array(
     "user_id" => $user_id,
-    "type" => "",
+    "type" => "member",
 );
 
 $apiUrl = API_URL . "plan_list.php";
