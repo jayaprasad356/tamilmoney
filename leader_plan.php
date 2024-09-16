@@ -157,7 +157,7 @@ if (isset($_POST['btnactivate'])) {
                                     </p>
                                     <p class="card-text">
                                             <p class="card-text" style="color: blue;">
-                                                Num Of Times: <strong><span style="color: blue;"><?php echo ''. htmlspecialchars($plan['num_times']); ?></span></strong>
+                                                Minimum <?php echo $plan['min_refers']; ?> Refers Need <strong><span style="color: blue;"><?php echo ''. htmlspecialchars($plan['num_times']); ?></span></strong>
                                             </p>
                                         </p>
                                     <p class="card-text">
