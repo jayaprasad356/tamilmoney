@@ -164,7 +164,7 @@ if (isset($_POST['btnactivate'])) {
                                         Validity: <span class="highlight">Unlimited Days</span>
                                     </p>
                                    <br>
-                                    <form action="plan.php" method="post" style="display: inline;">
+                                    <form action="leader_plan.php" method="post" style="display: inline;">
                                         <input type="hidden" name="plan_id" value="<?php echo htmlspecialchars($plan['id']); ?>">
                                         <button type="submit" name="btnactivate"  style="background-color:#3eb3a8; color:white;" class="btn">Purchase</button>
                                     </form>
