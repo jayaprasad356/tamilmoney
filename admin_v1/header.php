@@ -296,7 +296,12 @@ if ($_SESSION['role'] == 'admin') {
                         <span>Payments</span>
                     </a>
                 </li>
-
+                <li class="treeview">
+                    <a href="user_coupons.php">
+                        <i class="fas fa-tags"></i>
+                        <span>User Coupons</span>
+                    </a>
+                </li>
             </section>
             <!-- /.sidebar -->
         </aside>
