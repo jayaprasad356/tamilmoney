@@ -57,6 +57,7 @@ if ($num >= 1) {
         $temp['daily_quantity'] = $row['daily_quantity'];
         $temp['num_times'] = $row['num_times'];
         $temp['stock'] = $row['stock'];
+        $temp['min_refers'] = $row['min_refers'];
         $rows[] = $temp;
     }
     $response['success'] = true;
