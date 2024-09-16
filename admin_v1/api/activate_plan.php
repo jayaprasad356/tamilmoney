@@ -85,7 +85,9 @@ if (empty($plan)) {
 }
 
 $products = $plan[0]['products'];
-
+$min_refers = $plan[0]['min_refers'];
+$relate_plan_id = $plan[0]['relate_plan_id'];
+$type = $plan[0]['type'];
 $invite_bonus = $plan[0]['invite_bonus'];
 $price = $plan[0]['price'];
 $daily_income = $plan[0]['daily_income'];
@@ -142,6 +144,27 @@ $num = $db->numRows($res_check_user);
 
 
 if ($recharge >= $price) {
+
+    if($type == 'leader'){
+        $sql = "SELECT * FROM plan WHERE id = $relate_plan_id ";
+        $db->sql($sql);
+        $re_plan = $db->getResult();
+        $p_name = $re_plan[0]['products'];
+
+        $sql = "SELECT id FROM transactions WHERE user_id = $user_id AND type = 'invite_bonus' AND plan_id = $relate_plan_id AND DATE(datetime) >= '2024-09-17'";
+        $db->sql($sql);
+        $res = $db->getResult();
+        $num = $db->numRows($res);
+        if($num < $min_refers){
+            $response['success'] = false;
+            $response['message'] = "Minimum ". $min_refers ." Refers need in ".$p_name." to activate";
+            print_r(json_encode($response));
+            return false;
+
+        }
+
+    }
+
     if($valid == 0 && $price > 0){
         $sql = "UPDATE users SET valid_team = valid_team + 1  WHERE refer_code = '$referred_by'";
         $db->sql($sql);
@@ -176,12 +199,13 @@ if ($recharge >= $price) {
             $sql = "UPDATE users SET balance = balance + $invite_bonus,today_income = today_income + $invite_bonus,total_income = total_income + $invite_bonus,team_income = team_income + $invite_bonus  WHERE refer_code = '$referred_by'";
             $db->sql($sql);
 
-            $sql = "INSERT INTO transactions (user_id, amount, datetime, type) VALUES ('$r_id', '$invite_bonus', '$datetime', 'invite_bonus')";
+            $sql = "INSERT INTO transactions (user_id, amount, datetime, type, plan_id) VALUES ('$r_id', '$invite_bonus', '$datetime', 'invite_bonus', '$plan_id')";
             $db->sql($sql);
             
         }
 
     }
+
 
 
     $sql_insert_user_plan = "INSERT INTO user_plan (user_id,plan_id,joined_date,claim) VALUES ('$user_id','$plan_id','$date',1)";
