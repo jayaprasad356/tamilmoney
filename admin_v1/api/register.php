@@ -147,7 +147,7 @@ if ($num >= 1) {
     $refer_code = generateRandomString(6);
 
 
-    $sql = "INSERT INTO users (`mobile`,`name`,`referred_by`,`c_referred_by`,`d_referred_by`,`account_num`,`holder_name`,`bank`,`branch`,`ifsc`,`device_id`,`age`,`city`,`email`,`state`,`registered_datetime`,`refer_code`,`password`,`min_withdrawal`) VALUES ('$mobile','$name','$referred_by','$c_referred_by','$d_referred_by','','','','','','$device_id','$age','$city','$email','$state','$datetime','$refer_code','$password',50)";
+    $sql = "INSERT INTO users (`mobile`,`name`,`referred_by`,`c_referred_by`,`d_referred_by`,`account_num`,`holder_name`,`bank`,`branch`,`ifsc`,`device_id`,`age`,`city`,`email`,`state`,`registered_datetime`,`refer_code`,`password`,`min_withdrawal`) VALUES ('$mobile','$name','$referred_by','$c_referred_by','$d_referred_by','','','','','','$device_id','$age','$city','$email','$state','$datetime','$refer_code','$password',500)";
     $db->sql($sql);
 
     $sql_query = "UPDATE users SET team_size = team_size + 1 WHERE refer_code =  '$referred_by'";
