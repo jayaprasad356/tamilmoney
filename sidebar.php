@@ -179,22 +179,12 @@ curl_close($curl);
                     <i class="fs-4 bi-file-earmark-text"></i> <span class="ms-1">My Plans</span>
                 </a>
             </li>
-            <!-- <li>
-                <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
+            <li>
+                <a href="level_1.php" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
                     <i class="fs-4 bi-grid"></i> <span class="ms-1">My Referrals</span>
                 </a>
-                <ul class="collapse nav flex-column ms-1" id="submenu2">
-                    <li class="w-100">
-                        <a href="level_1.php" class="nav-link px-0 text-white"> <span>Level</span> 1</a>
-                    </li>
-                    <li>
-                        <a href="level_2.php" class="nav-link px-0 text-white"> <span>Level</span> 2</a>
-                    </li>
-                    <li>
-                        <a href="level_3.php" class="nav-link px-0 text-white"> <span>Level</span> 3</a>
-                    </li>
-                </ul>
-            </li> -->
+                
+            </li>
             <li>
                 <a href="leader_plan.php" class="nav-link px-0 align-middle text-white">
                     <i class="fs-4 bi-grid"></i> <span class="ms-1">Leader Plans</span>
