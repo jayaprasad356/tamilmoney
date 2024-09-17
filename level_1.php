@@ -82,7 +82,6 @@ curl_close($curl);
     <?php include_once('sidebar.php'); ?>
         <div class="col py-3">
             <div class="level1-container" id="level1">
-                <h2>Level 1 - 10% Income</h2>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
