@@ -180,10 +180,10 @@ curl_close($curl);
                 </a>
             </li>
             <li>
-                <a href="level_1.php" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
+                <a href="level_1.php" class="nav-link px-0 align-middle text-white">
                     <i class="fs-4 bi-grid"></i> <span class="ms-1">My Referrals</span>
                 </a>
-                
+
             </li>
             <li>
                 <a href="leader_plan.php" class="nav-link px-0 align-middle text-white">
