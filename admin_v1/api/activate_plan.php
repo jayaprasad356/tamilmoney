@@ -196,6 +196,10 @@ if ($recharge >= $price) {
 
                 }
             }
+            if($plan_id == 5 || $plan_id == 6){
+                $sql = "UPDATE users SET min_withdrawal = 50 WHERE refer_code = '$referred_by'";
+                $db->sql($sql);
+            }
             $sql = "UPDATE users SET balance = balance + $invite_bonus,today_income = today_income + $invite_bonus,total_income = total_income + $invite_bonus,team_income = team_income + $invite_bonus  WHERE refer_code = '$referred_by'";
             $db->sql($sql);
 
@@ -204,6 +208,11 @@ if ($recharge >= $price) {
             
         }
 
+    }
+
+    if($plan_id == 5 || $plan_id == 6){
+        $sql = "UPDATE users SET min_withdrawal = 50 WHERE id = $user_id";
+        $db->sql($sql);
     }
 
 
