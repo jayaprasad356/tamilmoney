@@ -196,7 +196,7 @@ if ($recharge >= $price) {
 
                 }
             }
-            if($plan_id == 5 || $plan_id == 6){
+            if($plan_id == 5 || $plan_id == 6 || $plan_id == 7){
                 $sql = "UPDATE users SET min_withdrawal = 50 WHERE refer_code = '$referred_by'";
                 $db->sql($sql);
             }
@@ -210,7 +210,7 @@ if ($recharge >= $price) {
 
     }
 
-    if($plan_id == 5 || $plan_id == 6){
+    if($plan_id == 5 || $plan_id == 6 || $plan_id == 7){
         $sql = "UPDATE users SET min_withdrawal = 50 WHERE id = $user_id";
         $db->sql($sql);
     }
