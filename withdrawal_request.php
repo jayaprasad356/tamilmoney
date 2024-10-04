@@ -35,6 +35,7 @@ if ($response === false) {
         $userdetails = $responseData["data"];
         if (!empty($userdetails)) {
             $balance = $userdetails[0]["balance"];
+            $books_wallet = $userdetails[0]["books_wallet"];
         } else {
             $balance = "No balance information available.";
         }
@@ -166,6 +167,11 @@ if (isset($_POST['btnWithdrawal'])) {
                 <div class="form-container mt-4">
                     <form action="withdrawal_request.php" method="post">
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
+                        <div class="mb-3">
+                            <label for="books_wallet" class="form-label">Books Wallet</label>
+                            <input type="number" class="form-control" id="books_wallet" name="books_wallet" value="<?php echo htmlspecialchars($books_wallet); ?>" disabled>
+                        </div>
+                        <br>
                         <div class="mb-3">
                             <label for="balance" class="form-label">Remaining Balance</label>
                             <input type="number" class="form-control" id="balance" name="balance" value="<?php echo htmlspecialchars($balance); ?>" disabled>
