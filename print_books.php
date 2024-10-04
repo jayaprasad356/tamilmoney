@@ -287,7 +287,7 @@ curl_close($curl);
                         <div class="mb-3">
                             <p class="no-copy"><?php echo htmlspecialchars($randomCustomerName); ?></p>
                             <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name"
-                                   class="form-control" required />
+                                   class="form-control" value = "<?php echo htmlspecialchars($randomCustomerName); ?>"required />
                         </div>
                         <div class="mb-3">
                             <p class="no-copy"><?php echo htmlspecialchars($randomBookName); ?></p>
