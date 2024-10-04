@@ -11,7 +11,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 $user_id = $_SESSION['id']; // Get user_id from session
-
+$datetime = date('Y-m-d H:i:s');
 $servername = "localhost";
 $username = "u743445510_money_book";
 $password = "Moneybook@2024";  
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
             }
 
             // Insert transaction
-            $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', 1, NOW())";
+            $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', 1, '$datetime')";
             if (!$conn->query($sql)) {
                 throw new Exception('Failed to insert transaction: ' . $conn->error);
             }
@@ -151,8 +151,9 @@ if ($response === false) {
         // Display transaction details
         $userdetails = $responseData["data"];
         if (!empty($userdetails)) {
-            $print_wallet = $userdetails[0]["print_wallet"];
+
             $balance = $userdetails[0]["balance"];
+            $print_cost = $userdetails[0]["print_cost"];
         } else {
             echo "<script>alert('" . $responseData["message"] . "')</script>";
         }
