@@ -84,15 +84,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
 
 
         try {
-            if($print_cost > 0){
-                // Update user fields
+                $print_cost = $_SESSION['print_cost'];
+                if($print_cost <= 0){
+                    echo json_encode(['status' => 'failed', 'message' => 'Please Activate']);
+                }
                 $sql = "UPDATE users SET balance = balance + print_cost WHERE id = $user_id";
                 if (!$conn->query($sql)) {
                     throw new Exception('Failed to update user fields: ' . $conn->error);
                 }
 
                 // Insert transaction
-                $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', 1, '$datetime')";
+                $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', $print_cost, '$datetime')";
                 if (!$conn->query($sql)) {
                     throw new Exception('Failed to insert transaction: ' . $conn->error);
                 }
@@ -102,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
 
                 // Success response
                 echo json_encode(['status' => 'success', 'message' => 'Your book printed successfully!']);
-            }
 
         } catch (Exception $e) {
             // Rollback transaction
@@ -159,6 +160,7 @@ if ($response === false) {
 
             $balance = $userdetails[0]["balance"];
             $print_cost = $userdetails[0]["print_cost"];
+            $_SESSION['print_cost'] = $print_cost;
         } else {
             echo "<script>alert('" . $responseData["message"] . "')</script>";
         }
