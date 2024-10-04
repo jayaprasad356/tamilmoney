@@ -81,28 +81,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
         // Begin transaction
         $conn->begin_transaction();
 
-        if($print_cost <= 0){
-            echo json_encode(['status' => 'failed', 'message' => 'Please Activate Print Books Plan']);
-        }
+
 
         try {
-            // Update user fields
-            $sql = "UPDATE users SET balance = balance + print_cost WHERE id = $user_id";
-            if (!$conn->query($sql)) {
-                throw new Exception('Failed to update user fields: ' . $conn->error);
+            if($print_cost > 0){
+                // Update user fields
+                $sql = "UPDATE users SET balance = balance + print_cost WHERE id = $user_id";
+                if (!$conn->query($sql)) {
+                    throw new Exception('Failed to update user fields: ' . $conn->error);
+                }
+
+                // Insert transaction
+                $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', 1, '$datetime')";
+                if (!$conn->query($sql)) {
+                    throw new Exception('Failed to insert transaction: ' . $conn->error);
+                }
+
+                // Commit transaction
+                $conn->commit();
+
+                // Success response
+                echo json_encode(['status' => 'success', 'message' => 'Your book printed successfully!']);
             }
 
-            // Insert transaction
-            $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', 1, '$datetime')";
-            if (!$conn->query($sql)) {
-                throw new Exception('Failed to insert transaction: ' . $conn->error);
-            }
-
-            // Commit transaction
-            $conn->commit();
-
-            // Success response
-            echo json_encode(['status' => 'success', 'message' => 'Your book printed successfully!']);
         } catch (Exception $e) {
             // Rollback transaction
             $conn->rollback();
@@ -265,6 +266,11 @@ curl_close($curl);
         <div class="col py-3">
             <div id="bankdetails" class="bankdetails-container">
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="info-box" style="background-color: #BF360C; color: white;">
+                            <h4>Print Cost</h4>  <p>₹<?php echo $print_cost; ?></p>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="info-box" style="background-color: #F9A825; color: white;">
                             <h4>Balance</h4>  <p>₹<?php echo $balance; ?></p>
