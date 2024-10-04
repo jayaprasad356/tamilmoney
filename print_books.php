@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
 
         try {
             // Update user fields
-            $sql = "UPDATE users SET print_wallet = print_wallet - 1, balance = balance + 1 WHERE id = $user_id";
+            $sql = "UPDATE users SET balance = balance + print_cost WHERE id = $user_id";
             if (!$conn->query($sql)) {
                 throw new Exception('Failed to update user fields: ' . $conn->error);
             }
