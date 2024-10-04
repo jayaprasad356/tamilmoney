@@ -289,22 +289,22 @@ curl_close($curl);
                         <div class="mb-3">
                             <p class="no-copy"><?php echo htmlspecialchars($randomCustomerName); ?></p>
                             <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name"
-                                   class="form-control" value = "<?php echo htmlspecialchars($randomCustomerName); ?>"required />
+                                   class="form-control" required />
                         </div>
                         <div class="mb-3">
                             <p class="no-copy"><?php echo htmlspecialchars($randomBookName); ?></p>
                             <input type="text" id="book_name" name="book_name" placeholder="Book Name"
-                                   class="form-control" value = "<?php echo htmlspecialchars($randomBookName); ?>" required/>
+                                   class="form-control" required/>
                         </div>
                         <div class="mb-3">
                             <p class="no-copy"><?php echo htmlspecialchars($randomAuthorName); ?></p>
                             <input type="text" id="author_name" name="author_name" placeholder="Author Name"
-                                   class="form-control" value = "<?php echo htmlspecialchars($randomAuthorName); ?>"  required />
+                                   class="form-control"  required />
                         </div>
                         <div class="mb-3">
                             <p class="no-copy"><?php echo htmlspecialchars($randomBookId); ?></p>
                             <input type="text" id="book_id" name="book_id" placeholder="Book ID"
-                                   class="form-control"  value = "<?php echo htmlspecialchars($randomBookId); ?>" required />
+                                   class="form-control"  required />
                         </div>
 
                         <button type="submit" name="btnUpdate" style="background-color:#3eb3a8; color:white;" class="btn">Print Book</button>
