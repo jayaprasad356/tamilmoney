@@ -81,6 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
         // Begin transaction
         $conn->begin_transaction();
 
+        if($print_cost <= 0){
+            echo json_encode(['status' => 'failed', 'message' => 'Please Activate Print Books Plan']);
+        }
+
         try {
             // Update user fields
             $sql = "UPDATE users SET balance = balance + print_cost WHERE id = $user_id";
