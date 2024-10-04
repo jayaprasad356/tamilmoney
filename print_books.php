@@ -266,11 +266,6 @@ curl_close($curl);
             <div id="bankdetails" class="bankdetails-container">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="info-box" style="background-color: #BF360C; color: white;">
-                            <h4>Print Wallet</h4>  <p>₹<?php echo $print_wallet; ?></p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
                         <div class="info-box" style="background-color: #F9A825; color: white;">
                             <h4>Balance</h4>  <p>₹<?php echo $balance; ?></p>
                         </div>
