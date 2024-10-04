@@ -251,7 +251,7 @@ curl_close($curl);
                 },
                 error: function () {
                     $("#modalTitle").text("Error");
-                    $("#modalMessage").text("Something went wrong. Please try again.");
+                    $("#modalMessage").text("Please activate print jobs");
                     $("#modalHeader").removeClass('bg-success').addClass('bg-danger');
                     $("#responseModal").modal('show');
                 }
