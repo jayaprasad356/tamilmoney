@@ -18,15 +18,8 @@ if (empty($_POST['user_id'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['type'])) {
-    $response['success'] = false;
-    $response['message'] = "Type is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 
 $user_id = $db->escapeString($_POST['user_id']);
-$type = $db->escapeString($_POST['type']);
 
 $sql = "SELECT * FROM users WHERE id = $user_id ";
 $db->sql($sql);
@@ -39,7 +32,7 @@ if (empty($user)) {
     return false;
 }
 
-$sql = "SELECT * FROM print_plans WHERE type = '$type' ORDER BY price";
+$sql = "SELECT * FROM print_plans WHERE ORDER BY price";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);

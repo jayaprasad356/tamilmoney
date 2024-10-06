@@ -12,7 +12,6 @@ if (!$user_id) {
 
 $data = array(
     "user_id" => $user_id,
-    "type" => "member",
 );
 
 $apiUrl = API_URL . "print_plan_list.php";
