@@ -57,7 +57,7 @@ if (isset($_POST['btnactivate'])) {
         "plan_id" => $plan_id,
         "user_id" => $user_id,
     );
-    $apiUrl = API_URL . "activate_plan.php";
+    $apiUrl = API_URL . "activate_print.php";
 
     $curl = curl_init($apiUrl);
     curl_setopt($curl, CURLOPT_POST, true);
@@ -152,7 +152,7 @@ if (isset($_POST['btnactivate'])) {
                                         Print Cost: <strong><?php echo '₹'.htmlspecialchars($plan['print_cost']); ?></strong>
                                     </p>
                                     <p class="card-text">
-                                        Daily Incomes: <strong><?php echo '₹'. htmlspecialchars($plan['daily_income']); ?></strong> For 2000 Prints
+                                        Daily Income: <strong><?php echo '₹'. htmlspecialchars($plan['daily_income']); ?></strong> For 2000 Prints
                                     </p>
                                     <p class="card-text">
                                         Invite Bonus: <strong><?php echo '₹'. htmlspecialchars($plan['invite_bonus']); ?></strong>
