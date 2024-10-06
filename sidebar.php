@@ -175,7 +175,7 @@ curl_close($curl);
                 </a>
             </li>
             <li>
-                <a href="plan.php" class="nav-link px-0 align-middle text-white">
+                <a href="print_plans.php" class="nav-link px-0 align-middle text-white">
                     <i class="fs-4 bi-table"></i> <span class="ms-1">Plans</span>
                 </a>
             </li>
