@@ -143,7 +143,7 @@ if (isset($_POST['btnactivate'])) {
 
                                 <div class="card-body">
                                 <h5 class="card-title">
-                                        <strong><?php echo htmlspecialchars($plan['products']); ?></strong>
+                                        <strong><?php echo htmlspecialchars($plan['name']); ?></strong>
                                     </h5>
                                     <p class="card-text">
                                         Price: <strong><?php echo '₹'. htmlspecialchars($plan['price']); ?></strong>

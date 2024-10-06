@@ -32,7 +32,7 @@ if (empty($user)) {
     return false;
 }
 
-$sql = "SELECT * FROM print_plans WHERE ORDER BY price";
+$sql = "SELECT * FROM print_plans ORDER BY price";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
