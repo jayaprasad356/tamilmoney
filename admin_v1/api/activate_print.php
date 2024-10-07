@@ -86,7 +86,7 @@ $min_withdrawal = $user[0]['min_withdrawal'];
 $datetime = date('Y-m-d H:i:s');
 
 
-$sql = "SELECT COUNT(*) AS count FROM user_plan WHERE plan_id = $plan_id AND user_id = $user_id";
+$sql = "SELECT COUNT(*) AS count FROM user_prints WHERE plan_id = $plan_id AND user_id = $user_id";
 $db->sql($sql);
 $res_check_plan = $db->getResult();
 $user_num_times = $res_check_plan[0]['count'];
@@ -135,8 +135,8 @@ if ($recharge >= $price) {
 
     }
 
-    $sql_insert_user_plan = "INSERT INTO user_plan (user_id,plan_id,joined_date,claim) VALUES ('$user_id','$plan_id','$date',1)";
-    $db->sql($sql_insert_user_plan);
+    $sql_insert_user_prints = "INSERT INTO user_prints (user_id,plan_id,joined_date,claim) VALUES ('$user_id','$plan_id','$date',1)";
+    $db->sql($sql_insert_user_prints);
 
     $sql_insert_transaction = "INSERT INTO transactions (user_id, amount, datetime, type) VALUES ('$user_id', '$price', '$datetime', 'start_print')";
     $db->sql($sql_insert_transaction);
