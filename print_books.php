@@ -76,6 +76,8 @@ if (isset($_POST['print_form'])) {
 
     }
 
+    $error = []; // Initialize the error array early on
+
     if (empty($errors)) {
         // Begin transaction
         $conn->begin_transaction();
@@ -94,26 +96,21 @@ if (isset($_POST['print_form'])) {
                 $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', $print_cost, '$datetime')";
                 $conn->query($sql);
 
-                // Commit transaction
                 $conn->commit();
-                $error['add_balance'] = "<section class='content-header'>
-                                                     <span class='label label-success'>Your book printed successfully!</span> </section>";
-
-
-        } catch (Exception $e) {
-            // Rollback transaction
-            $conn->rollback();
-            echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
+                echo json_encode(['status' => 'success', 'message' => 'Your book printed successfully!']);
+            } catch (Exception $e) {
+                $conn->rollback();
+                echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
+            }
+        } else {
+            // Return the errors as part of the response
+            echo json_encode(['status' => 'error', 'errors' => $errors]);
         }
-    } else {
-        // Return error response
-        echo json_encode(['status' => 'error', 'errors' => $errors]);
+    
+        // Close the connection and exit to prevent further processing
+        $conn->close();
+        exit();
     }
-
-    // Close the connection
-    $conn->close();
-    exit(); // Prevent further processing of the PHP script
-}
 
 // Initialize user details
 include_once('includes/connection.php');
@@ -209,52 +206,54 @@ curl_close($curl);
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        
-    // $(document).ready(function () {
-    //     $("form").on("submit", function (e) {
-    //         e.preventDefault(); // Prevent the form from submitting normally
+$(document).ready(function () {
+    $("form[name='print_form']").on("submit", function (e) {
+        e.preventDefault(); // Prevent the form from submitting normally
 
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "", // Current page
-    //             data: $(this).serialize() + "&ajax=1",
-    //             dataType: "json",
-    //             success: function (response) {
-    //                 var modalHeader = $("#modalHeader");
-    //                 var modalTitle = $("#modalTitle");
-    //                 var modalMessage = $("#modalMessage");
+        $.ajax({
+            type: "POST",
+            url: "", // Current page
+            data: $(this).serialize() + "&print_form=1", // Include the print_form parameter
+            dataType: "json",
+            success: function (response) {
+                var modalHeader = $("#modalHeader");
+                var modalTitle = $("#modalTitle");
+                var modalMessage = $("#modalMessage");
 
-    //                 if (response.status === 'success') {
-    //                     modalTitle.text("Success");
-    //                     modalHeader.removeClass('bg-danger').addClass('bg-success');
-    //                     modalMessage.html(response.message);
-    //                     $("form")[0].reset();
-    //                 } else {
-    //                     modalTitle.text("Error");
-    //                     modalHeader.removeClass('bg-success').addClass('bg-danger');
-    //                     var errorMessage = '';
-    //                     if (response.errors) {
-    //                         $.each(response.errors, function (key, value) {
-    //                             errorMessage += value + '<br>';
-    //                         });
-    //                     } else {
-    //                         errorMessage = "An error occurred. Please try again.";
-    //                     }
-    //                     modalMessage.html(errorMessage);
-    //                 }
+                if (response.status === 'success') {
+                    modalTitle.text("Success");
+                    modalHeader.removeClass('bg-danger').addClass('bg-success');
+                    modalMessage.html(response.message); // Show the success message
+                    $("form")[0].reset(); // Reset the form
+                } else {
+                    modalTitle.text("Error");
+                    modalHeader.removeClass('bg-success').addClass('bg-danger');
+                    var errorMessage = '';
+                    if (response.errors) {
+                        $.each(response.errors, function (key, value) {
+                            errorMessage += value + '<br>';
+                        });
+                    } else {
+                        errorMessage = "An error occurred. Please try again.";
+                    }
+                    modalMessage.html(errorMessage); // Show the error message
+                }
 
-    //                 $("#responseModal").modal('show');
-    //             },
-    //             error: function () {
-    //                 $("#modalTitle").text("Error");
-    //                 $("#modalMessage").text("Please activate print jobs");
-    //                 $("#modalHeader").removeClass('bg-success').addClass('bg-danger');
-    //                 $("#responseModal").modal('show');
-    //             }
-    //         });
-    //     });
-    // });
-    </script>
+                $("#responseModal").modal('show'); // Show the modal
+            },
+            error: function () {
+                $("#modalTitle").text("Error");
+                $("#modalMessage").text("Please activate print jobs.");
+                $("#modalHeader").removeClass('bg-success').addClass('bg-danger');
+                $("#responseModal").modal('show'); // Show the modal
+            }
+        });
+    });
+});
+</script>
+<script>
+    
+</script>
 </head>
 <body>
 <section class="content-header">
@@ -305,7 +304,7 @@ curl_close($curl);
                                    class="form-control"  required />
                         </div>
 
-                        <button type="submit" name="btnUpdate" style="background-color:#3eb3a8; color:white;" class="btn">Print Book</button>
+                        <button type="submit" name="print_form" style="background-color:#3eb3a8; color:white;" class="btn">Print Book</button>
                     </form>
                 </div>
 

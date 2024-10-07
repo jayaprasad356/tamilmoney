@@ -47,14 +47,16 @@ if ($response === false) {
 curl_close($curl);
 
 if (isset($_POST['btnactivate'])) {
-    $plan_id = isset($_POST['plan_id']) ? $_POST['plan_id'] : null;
+    // Update: Get the print_plan_id instead of plan_id
+    $print_plan_id = isset($_POST['print_plan_id']) ? $_POST['print_plan_id'] : null;
 
-    if (!$plan_id) {
-        die("Plan ID not provided.");
+    if (!$print_plan_id) {
+        die("Print Plan ID not provided.");
     }
 
+    // Update: Send print_plan_id in the request
     $data = array(
-        "plan_id" => $plan_id,
+        "print_plan_id" => $print_plan_id,
         "user_id" => $user_id,
     );
     $apiUrl = API_URL . "activate_print.php";
@@ -91,7 +93,6 @@ if (isset($_POST['btnactivate'])) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,8 +168,8 @@ if (isset($_POST['btnactivate'])) {
                                         Validity: <span class="highlight">Unlimited Days</span>
                                     </p>
                                    <br>
-                                    <form action="print_plans.php" method="post" style="display: inline;">
-                                        <input type="hidden" name="plan_id" value="<?php echo htmlspecialchars($plan['id']); ?>">
+                                   <form action="print_plans.php" method="post" style="display: inline;">
+                                        <input type="hidden" name="print_plan_id" value="<?php echo htmlspecialchars($plan['id']); ?>">
                                         <button type="submit" name="btnactivate"  style="background-color:#3eb3a8; color:white;" class="btn">Purchase</button>
                                     </form>
                                 </div>
