@@ -49,7 +49,7 @@ $randomAuthorName = trim($randomBook['author_name']);
 $randomBookId = trim($randomBook['book_id']);
 
 // Check if it's an AJAX request
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
+if (isset($_POST['print_form'])) {
     $customerName = trim($conn->real_escape_string($_POST['customer_name']));
     $bookName = trim($conn->real_escape_string($_POST['book_name']));
     $authorName = trim($conn->real_escape_string($_POST['author_name']));
@@ -71,10 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
     }
 
     if (!$matchFound) {
-        $errors['customer_name'] = "Customer Name is incorrect.";
-        $errors['book_name'] = "Book Name is incorrect.";
-        $errors['author_name'] = "Author Name is incorrect.";
-        $errors['book_id'] = "Book ID is incorrect.";
+        $error['add_balance'] = "<section class='content-header'>
+                                                     <span class='label label-danger'>Incorrect</span> </section>";
+
     }
 
     if (empty($errors)) {
@@ -89,21 +88,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajax'])) {
                     echo json_encode(['status' => 'failed', 'message' => 'Please Activate']);
                 }
                 $sql = "UPDATE users SET balance = balance + print_cost WHERE id = $user_id";
-                if (!$conn->query($sql)) {
-                    throw new Exception('Failed to update user fields: ' . $conn->error);
-                }
+                $conn->query($sql);
 
                 // Insert transaction
                 $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', $print_cost, '$datetime')";
-                if (!$conn->query($sql)) {
-                    throw new Exception('Failed to insert transaction: ' . $conn->error);
-                }
+                $conn->query($sql);
 
                 // Commit transaction
                 $conn->commit();
+                $error['add_balance'] = "<section class='content-header'>
+                                                     <span class='label label-success'>Your book printed successfully!</span> </section>";
 
-                // Success response
-                echo json_encode(['status' => 'success', 'message' => 'Your book printed successfully!']);
 
         } catch (Exception $e) {
             // Rollback transaction
@@ -214,54 +209,57 @@ curl_close($curl);
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(document).ready(function () {
-        $("form").on("submit", function (e) {
-            e.preventDefault(); // Prevent the form from submitting normally
+        
+    // $(document).ready(function () {
+    //     $("form").on("submit", function (e) {
+    //         e.preventDefault(); // Prevent the form from submitting normally
 
-            $.ajax({
-                type: "POST",
-                url: "", // Current page
-                data: $(this).serialize() + "&ajax=1",
-                dataType: "json",
-                success: function (response) {
-                    var modalHeader = $("#modalHeader");
-                    var modalTitle = $("#modalTitle");
-                    var modalMessage = $("#modalMessage");
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "", // Current page
+    //             data: $(this).serialize() + "&ajax=1",
+    //             dataType: "json",
+    //             success: function (response) {
+    //                 var modalHeader = $("#modalHeader");
+    //                 var modalTitle = $("#modalTitle");
+    //                 var modalMessage = $("#modalMessage");
 
-                    if (response.status === 'success') {
-                        modalTitle.text("Success");
-                        modalHeader.removeClass('bg-danger').addClass('bg-success');
-                        modalMessage.html(response.message);
-                        $("form")[0].reset();
-                    } else {
-                        modalTitle.text("Error");
-                        modalHeader.removeClass('bg-success').addClass('bg-danger');
-                        var errorMessage = '';
-                        if (response.errors) {
-                            $.each(response.errors, function (key, value) {
-                                errorMessage += value + '<br>';
-                            });
-                        } else {
-                            errorMessage = "An error occurred. Please try again.";
-                        }
-                        modalMessage.html(errorMessage);
-                    }
+    //                 if (response.status === 'success') {
+    //                     modalTitle.text("Success");
+    //                     modalHeader.removeClass('bg-danger').addClass('bg-success');
+    //                     modalMessage.html(response.message);
+    //                     $("form")[0].reset();
+    //                 } else {
+    //                     modalTitle.text("Error");
+    //                     modalHeader.removeClass('bg-success').addClass('bg-danger');
+    //                     var errorMessage = '';
+    //                     if (response.errors) {
+    //                         $.each(response.errors, function (key, value) {
+    //                             errorMessage += value + '<br>';
+    //                         });
+    //                     } else {
+    //                         errorMessage = "An error occurred. Please try again.";
+    //                     }
+    //                     modalMessage.html(errorMessage);
+    //                 }
 
-                    $("#responseModal").modal('show');
-                },
-                error: function () {
-                    $("#modalTitle").text("Error");
-                    $("#modalMessage").text("Please activate print jobs");
-                    $("#modalHeader").removeClass('bg-success').addClass('bg-danger');
-                    $("#responseModal").modal('show');
-                }
-            });
-        });
-    });
+    //                 $("#responseModal").modal('show');
+    //             },
+    //             error: function () {
+    //                 $("#modalTitle").text("Error");
+    //                 $("#modalMessage").text("Please activate print jobs");
+    //                 $("#modalHeader").removeClass('bg-success').addClass('bg-danger');
+    //                 $("#responseModal").modal('show');
+    //             }
+    //         });
+    //     });
+    // });
     </script>
 </head>
 <body>
-
+<section class="content-header">
+    <?php echo isset($error['add_balance']) ? $error['add_balance'] : ''; ?>
+</section>
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <?php include_once('sidebar.php'); ?>
@@ -285,7 +283,7 @@ curl_close($curl);
                 <!-- Modern Card Layout for Balance and Print Wallet -->
                 <!-- Book Print Form -->
                 <div class="form-container mt-4">
-                    <form method="post">
+                    <form name="print_form" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <p class="no-copy"><?php echo htmlspecialchars($randomCustomerName); ?></p>
                             <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name"

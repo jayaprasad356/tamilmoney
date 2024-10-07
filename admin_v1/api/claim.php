@@ -30,7 +30,10 @@ if (empty($_POST['plan_id'])) {
     return;
 }
 
-
+$response['success'] = false;
+$response['message'] = "Income Currently Disabled ";
+print_r(json_encode($response));
+return false;
 
 $user_id = $db->escapeString($_POST['user_id']);
 $plan_id = $db->escapeString($_POST['plan_id']);
