@@ -225,6 +225,12 @@ $(document).ready(function () {
                     modalHeader.removeClass('bg-danger').addClass('bg-success');
                     modalMessage.html(response.message); // Show the success message
                     $("form")[0].reset(); // Reset the form
+
+                    // Refresh the page after a short delay
+                    setTimeout(function () {
+                        location.reload(); // Reload the entire page
+                    }, 2000); // 2000 milliseconds = 2 seconds delay
+
                 } else {
                     modalTitle.text("Error");
                     modalHeader.removeClass('bg-success').addClass('bg-danger');
@@ -250,6 +256,7 @@ $(document).ready(function () {
         });
     });
 });
+
 </script>
 <script>
     
