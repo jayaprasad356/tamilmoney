@@ -16,7 +16,7 @@ $servername = "localhost";
 $username = "u743445510_money_book";
 $password = "Moneybook@2024";  
 $dbname = "u743445510_money_book"; 
-
+date_default_timezone_set('Asia/Kolkata');
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
