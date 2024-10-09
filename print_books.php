@@ -86,9 +86,8 @@ if (isset($_POST['print_form'])) {
 
         try {
                 $print_cost = $_SESSION['print_cost'];
-                if($print_cost <= 0){
+                if($print_cost > 0){
                     echo json_encode(['status' => 'failed', 'message' => 'Please Activate']);
-                }
                 $sql = "UPDATE users SET balance = balance + print_cost WHERE id = $user_id";
                 $conn->query($sql);
 
@@ -98,6 +97,7 @@ if (isset($_POST['print_form'])) {
 
                 $conn->commit();
                 echo json_encode(['status' => 'success', 'message' => 'Your book printed successfully!']);
+                }
             } catch (Exception $e) {
                 $conn->rollback();
                 echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
@@ -106,6 +106,7 @@ if (isset($_POST['print_form'])) {
             // Return the errors as part of the response
             echo json_encode(['status' => 'error', 'errors' => $errors]);
         }
+        
     
         // Close the connection and exit to prevent further processing
         $conn->close();
