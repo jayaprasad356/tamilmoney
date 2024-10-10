@@ -15,7 +15,8 @@ $datetime = date('Y-m-d H:i:s');
 $servername = "localhost";
 $username = "u743445510_money_book";
 $password = "Moneybook@2024";  
-$dbname = "u743445510_money_book"; 
+$dbname = "u743445510_money_book";
+
 date_default_timezone_set('Asia/Kolkata');
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -78,40 +79,44 @@ if (isset($_POST['print_form'])) {
 
     $error = []; // Initialize the error array early on
 
+  
     if (empty($errors)) {
-        // Begin transaction
-        $conn->begin_transaction();
+        $print_cost = $_SESSION['print_cost'];
 
+        if ($print_cost > 0) {
+            $conn->autocommit(FALSE);
 
-
-        try {
-                $print_cost = $_SESSION['print_cost'];
-                if($print_cost > 0){
-                    echo json_encode(['status' => 'failed', 'message' => 'Please Activate']);
-                $sql = "UPDATE users SET balance = balance + print_cost WHERE id = $user_id";
-                $conn->query($sql);
+            try {
+                // Update user balance
+                $sql = "UPDATE users SET balance = balance + $print_cost WHERE id = $user_id";
+                if (!$conn->query($sql)) {
+                    throw new Exception('Failed to update balance');
+                }
 
                 // Insert transaction
                 $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', $print_cost, '$datetime')";
-                $conn->query($sql);
+                if (!$conn->query($sql)) {
+                    throw new Exception('Failed to insert transaction');
+                }
 
+                // Commit transaction
                 $conn->commit();
                 echo json_encode(['status' => 'success', 'message' => 'Your book printed successfully!']);
-                }
             } catch (Exception $e) {
-                $conn->rollback();
-                echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
+                $conn->rollback(); // Rollback transaction if any query fails
+                echo json_encode(['status' => 'failed', 'message' => $e->getMessage()]);
             }
         } else {
-            // Return the errors as part of the response
-            echo json_encode(['status' => 'error', 'errors' => $errors]);
+            echo json_encode(['status' => 'failed', 'message' => 'Please activate print jobs.']);
         }
-        
-    
-        // Close the connection and exit to prevent further processing
-        $conn->close();
-        exit();
+    } else {
+        echo json_encode(['status' => 'failed', 'errors' => $errors]);
     }
+
+    // Close connection and stop further processing
+    $conn->close();
+    exit();
+}
 
 // Initialize user details
 include_once('includes/connection.php');
@@ -241,7 +246,7 @@ $(document).ready(function () {
                             errorMessage += value + '<br>';
                         });
                     } else {
-                        errorMessage = "An error occurred. Please try again.";
+                        errorMessage = "Please activate print jobs.";
                     }
                     modalMessage.html(errorMessage); // Show the error message
                 }
