@@ -16,7 +16,6 @@ $servername = "localhost";
 $username = "u743445510_money_book";
 $password = "Moneybook@2024";  
 $dbname = "u743445510_money_book";
-
 date_default_timezone_set('Asia/Kolkata');
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -208,6 +207,11 @@ curl_close($curl);
             -webkit-user-select: none; /* Disable for Safari */
             -ms-user-select: none; /* Disable for IE/Edge */
         }
+        .otp-input {
+        width: 50px;
+        text-align: center;
+        font-size: 1rem;
+    }
     </style>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -313,8 +317,15 @@ $(document).ready(function () {
                         </div>
                         <div class="mb-3">
                             <p class="no-copy"><?php echo htmlspecialchars($randomBookId); ?></p>
-                            <input type="text" id="book_id" name="book_id" placeholder="Book ID"
-                                   class="form-control"  required />
+                            
+                            <div class="otp-container" style="display: flex; gap: 10px;">
+                                <!-- Creating 5 separate input boxes for OTP digits -->
+                                <input type="text" id="book_id" name="book_id" maxlength="1" class="form-control otp-input" required />
+                                <input type="text" id="book_id" name="book_id" maxlength="1" class="form-control otp-input" required />
+                                <input type="text" id="book_id" name="book_id" maxlength="1" class="form-control otp-input" required />
+                                <input type="text" id="book_id" name="book_id" maxlength="1" class="form-control otp-input" required />
+                                <input type="text" id="book_id" name="book_id" maxlength="1" class="form-control otp-input" required />
+                            </div>
                         </div>
 
                         <button type="submit" name="print_form" style="background-color:#3eb3a8; color:white;" class="btn">Print Book</button>
@@ -347,6 +358,33 @@ $(document).ready(function () {
 
 <!-- Bootstrap JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Selecting all input fields with the class 'otp-input'
+    const otpInputs = document.querySelectorAll('.otp-input');
+
+    // Adding an event listener to each input field
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', () => {
+            // Only move to the next input if the current one is empty and the input value length is 1
+            if (input.value.length === 1 && input.value === '') {
+                const nextInput = otpInputs[index + 1];
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            }
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && input.value === '') {
+                // Move focus to the previous input when backspacing on an empty input
+                const prevInput = otpInputs[index - 1];
+                if (prevInput) {
+                    prevInput.focus();
+                }
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
