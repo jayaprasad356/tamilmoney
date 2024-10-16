@@ -13,9 +13,9 @@ if (!isset($_SESSION['id'])) {
 $user_id = $_SESSION['id']; // Get user_id from session
 $datetime = date('Y-m-d H:i:s');
 $servername = "localhost";
-$username = "u743445510_money_book";
-$password = "Moneybook@2024";  
-$dbname = "u743445510_money_book";
+$username = "root";
+$password = "";  
+$dbname = "money_book";
 date_default_timezone_set('Asia/Kolkata');
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -24,6 +24,21 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+if (!isset($_SESSION['print_count'])) {
+    $_SESSION['print_count'] = 0; // Start with 0 if not set
+}
+
+$printCount = min($_SESSION['print_count'], 10); // Cap at 10
+
+// Handle updating the print count via AJAX
+if (isset($_POST['update_print_count'])) {
+    $newCount = intval($_POST['new_count']);
+    $_SESSION['print_count'] = min($newCount, 10); // Update the session value, capped at 10
+    echo json_encode(['status' => 'success', 'message' => 'Count updated']);
+    exit();
+}
+
 
 // Fetch all records from the books table
 $sql = "SELECT customer_name, book_name, author_name, book_id FROM books";
@@ -77,7 +92,8 @@ if (isset($_POST['print_form'])) {
     }
 
     $error = []; // Initialize the error array early on
-
+    shuffle($books);
+    $selectedBooks = array_slice($books, 0, 10); // Get 10 random books
   
     if (empty($errors)) {
         $print_cost = $_SESSION['print_cost'];
@@ -91,14 +107,20 @@ if (isset($_POST['print_form'])) {
                 if (!$conn->query($sql)) {
                     throw new Exception('Failed to update balance');
                 }
-
-                // Insert transaction
+        
                 $sql = "INSERT INTO transactions (user_id, type, amount, datetime) VALUES ($user_id, 'print_books', $print_cost, '$datetime')";
                 if (!$conn->query($sql)) {
                     throw new Exception('Failed to insert transaction');
                 }
-
-                // Commit transaction
+        
+                // Increment and update session count
+                $newCount = $_SESSION['print_count'] + 1;
+                $_SESSION['print_count'] = $newCount;
+        
+                // Reset count after reaching max
+                if ($_SESSION['print_count'] >= 10) {
+                    $_SESSION['print_count'] = 0; // Reset count to 0 after reaching 10
+                }
                 $conn->commit();
                 echo json_encode(['status' => 'success', 'message' => 'Your book printed successfully!']);
             } catch (Exception $e) {
@@ -236,6 +258,10 @@ $(document).ready(function () {
                     modalMessage.html(response.message); // Show the success message
                     $("form")[0].reset(); // Reset the form
 
+                    // Reset the print count from the response
+                    let printCount = response.new_count; // Get the new count from the response
+                    $("#printCount").text(printCount + "/10"); // Update display
+
                     // Refresh the page after a short delay
                     setTimeout(function () {
                         location.reload(); // Reload the entire page
@@ -328,9 +354,12 @@ $(document).ready(function () {
                             </div>
                         </div>
 
-                        <button type="submit" name="print_form" style="background-color:#3eb3a8; color:white;" class="btn">Print Book</button>
-                    </form>
-                </div>
+                        <div class="mb-3">
+                                <button type="button" id="nextButton" class="btn btn-primary">Next</button>
+                                <span id="printCount">1/10</span>
+                            </div>
+                            <button type="submit" id="printButton" name="print_form" style="background-color:#3eb3a8; color:white;" class="btn disabled" disabled>Print Book</button>
+                        </form>
 
                 <!-- Bootstrap Modal -->
                 <div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel" aria-hidden="true">
@@ -358,33 +387,51 @@ $(document).ready(function () {
 
 <!-- Bootstrap JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Selecting all input fields with the class 'otp-input'
-    const otpInputs = document.querySelectorAll('.otp-input');
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    // Adding an event listener to each input field
-    otpInputs.forEach((input, index) => {
-        input.addEventListener('input', () => {
-            // Only move to the next input if the current one is empty and the input value length is 1
-            if (input.value.length === 1 && input.value === '') {
-                const nextInput = otpInputs[index + 1];
-                if (nextInput) {
-                    nextInput.focus();
-                }
-            }
-        });
+    <script>
+ $(document).ready(function() {
+    let printCount = <?php echo $printCount; ?>; // Get print count from PHP session
+    const maxPrintCount = 10;
 
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Backspace' && input.value === '') {
-                // Move focus to the previous input when backspacing on an empty input
-                const prevInput = otpInputs[index - 1];
-                if (prevInput) {
-                    prevInput.focus();
-                }
+    // Update the print count display when the page loads
+    $("#printCount").text(printCount + "/" + maxPrintCount); // Initially display 0/10
+
+    // If print count is already 10, enable the print button
+    if (printCount === maxPrintCount) {
+        $("#printButton").removeClass('disabled').prop('disabled', false); // Enable Print Book button
+    }
+
+    // Handle "Next" button click
+    $("#nextButton").click(function() {
+        if (printCount < maxPrintCount) {
+            printCount++; // Increment print count
+            $("#printCount").text(printCount + "/" + maxPrintCount); // Update display text
+
+            // If printCount reaches 10, enable the print button
+            if (printCount === maxPrintCount) {
+                $("#printButton").removeClass('disabled').prop('disabled', false); // Enable Print Book button
             }
-        });
+
+            // Send an AJAX request to update the print count in the session
+            $.ajax({
+                type: "POST",
+                url: "", // Current page
+                data: { update_print_count: 1, new_count: printCount }, // Data to send
+                success: function(response) {
+                    console.log("Count updated successfully");
+                    // Reload the page to reflect the updated count
+                    location.reload(); 
+                },
+                error: function() {
+                    console.error("Error updating count");
+                }
+            });
+        }
     });
-</script>
+});
 
+    </script>
 </body>
 </html>
