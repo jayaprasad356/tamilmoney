@@ -1,5 +1,6 @@
+<h2>Print books under maintenance Please wait till Monday will open</h2>
 <?php
-session_start();
+/*session_start();
 
 // Enable error reporting
 error_reporting(E_ALL);
@@ -211,9 +212,9 @@ curl_close($curl);
             padding: 20px;
         }
         .no-copy {
-            user-select: none; /* Disable text selection */
-            -webkit-user-select: none; /* Disable for Safari */
-            -ms-user-select: none; /* Disable for IE/Edge */
+            user-select: none; 
+            -webkit-user-select: none; 
+            -ms-user-select: none; 
         }
         .otp-input {
         width: 50px;
@@ -222,7 +223,7 @@ curl_close($curl);
     }
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
 $(document).ready(function() {
@@ -570,4 +571,4 @@ function showErrorModal(errors) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-</html>
+</html>*/
