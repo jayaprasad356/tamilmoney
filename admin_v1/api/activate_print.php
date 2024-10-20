@@ -20,7 +20,10 @@ $fn = new functions;
 
 $date = date('Y-m-d');
 
-
+$response['success'] = false;
+$response['message'] = "Disabled";
+print_r(json_encode($response));
+return false;
 if (empty($_POST['user_id'])) {
     $response['success'] = false;
     $response['message'] = "User Id is Empty";
