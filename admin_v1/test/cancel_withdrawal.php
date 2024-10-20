@@ -24,13 +24,12 @@ if ($num >= 1) {
         $w_id = $row['id'];
         $amount = $row['amount'];
         $user_id = $row['user_id'];
-        // $sql = "UPDATE withdrawals SET status=2 WHERE id = $w_id";
-        // $db->sql($sql);
-        $amount = $amount * 0.25;
+        $sql = "UPDATE withdrawals SET status=2 WHERE id = $w_id";
+        $db->sql($sql);
         $sql = "UPDATE users SET balance= balance + $amount,total_withdrawal = total_withdrawal - $amount WHERE id = $user_id";
         $db->sql($sql);
 
-        $sql = "INSERT INTO transactions (`user_id`, `amount`, `datetime`, `type`) VALUES ('$user_id', '$amount', '$datetime', 'deduction_credit')";
+        $sql = "INSERT INTO transactions (`user_id`, `amount`, `datetime`, `type`) VALUES ('$user_id', '$amount', '$datetime', 'cancelled')";
         $db->sql($sql);
     }
     $response['success'] = true;
